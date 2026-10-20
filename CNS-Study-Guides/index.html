@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HoyaDocs &middot; CNS Study Guides</title>
+<meta name="description" content="HoyaDocs Block 6 CNS study guides, organized lecture by lecture and learning objective by learning objective.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Graduate&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#EEF0F3; --panel:#FFFFFF; --sunk:#E6E9EE; --line:#D3D8E0;
+  --ink:#1A3363; --muted:#5B6274;
+  --silver:#6E7787; --silver-hi:#C5CBD6;
+  --navy:#0F2244; --navy-2:#1A3363; --navy-ink:#F4F1EA; --navy-muted:#A9B3C7;
+  --tan:#5AAEE6; --tan-ink:#1D6FA8;
+  --hy-bg:#FFF4C2; --hy-line:#D4A300; --hy-ink:#1A3363;
+  --g:#5B4BC4; --s:#C4631B; --d:#1F7F78; --a:#B8324A;
+  --emb:#C4631B; --emb-ink:#8F4510; --emb-soft:#FBE9DA;
+  --his:#B83B72; --his-ink:#8C1F55; --his-soft:#F8DDEA;
+  --neu:#5B4BC4; --neu-ink:#3F2F9E; --neu-soft:#ECE9FA;
+  --pat:#1F7F78; --pat-ink:#0F5F59; --pat-soft:#DCF1EE;
+  --pha:#5B4BC4; --pha-ink:#3F2F9E; --pha-soft:#ECE9FA;
+  --varsity:"Graduate","Rockwell","Georgia",serif;
+  --cond:"Barlow Condensed","Arial Narrow",sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0B1424; --panel:#13203A; --sunk:#0F1A30; --line:#26365A;
+    --ink:#E8E4DA; --muted:#9BA5B9;
+    --navy:#060D1A; --navy-2:#13254A; --navy-ink:#EEE9DE; --navy-muted:#8E98AE;
+    --tan:#7CC4F0; --tan-ink:#9DD3F5;
+    --silver:#C3C9D4; --silver-hi:#C5CBD6;
+    --hy-bg:#342D0E; --hy-line:#C9A227; --hy-ink:#F4E3A1;
+    --g:#9B8DE0; --s:#F0914A; --d:#4FC1B6; --a:#F07186;
+    --emb:#F0914A; --emb-ink:#F6B07A; --emb-soft:#3A2515;
+    --his:#E77BAA; --his-ink:#EE9BC0; --his-soft:#3A1A2A;
+    --neu:#9B8DE0; --neu-ink:#BDB2F0; --neu-soft:#262043;
+    --pat:#4FC1B6; --pat-ink:#7FD6CD; --pat-soft:#13332F;
+    --pha:#9B8DE0; --pha-ink:#BDB2F0; --pha-soft:#262043;
+  }
+}
+:root[data-theme="dark"]{
+    --ground:#0B1424; --panel:#13203A; --sunk:#0F1A30; --line:#26365A;
+    --ink:#E8E4DA; --muted:#9BA5B9;
+    --navy:#060D1A; --navy-2:#13254A; --navy-ink:#EEE9DE; --navy-muted:#8E98AE;
+    --tan:#7CC4F0; --tan-ink:#9DD3F5;
+    --silver:#C3C9D4; --silver-hi:#C5CBD6;
+    --hy-bg:#342D0E; --hy-line:#C9A227; --hy-ink:#F4E3A1;
+    --g:#9B8DE0; --s:#F0914A; --d:#4FC1B6; --a:#F07186;
+    --emb:#F0914A; --emb-ink:#F6B07A; --emb-soft:#3A2515;
+    --his:#E77BAA; --his-ink:#EE9BC0; --his-soft:#3A1A2A;
+    --neu:#9B8DE0; --neu-ink:#BDB2F0; --neu-soft:#262043;
+    --pat:#4FC1B6; --pat-ink:#7FD6CD; --pat-soft:#13332F;
+    --pha:#9B8DE0; --pha-ink:#BDB2F0; --pha-soft:#262043;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ground);color:var(--ink)}
+body{font:16px/1.5 var(--body);margin:0;padding:0 16px 56px}
+.wrap{max-width:1180px;margin:0 auto}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--tan);outline-offset:3px}
+html{scroll-behavior:smooth}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 0 12px}
+.word{font-family:var(--varsity);font-size:24px;letter-spacing:.04em;text-decoration:none;color:var(--ink);line-height:1}
+.word span{color:var(--silver)}
+.rev{font-family:var(--cond);font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.topr{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.toplink{font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:5px 2px;border-bottom:2px solid transparent}
+.toplink:hover{border-bottom-color:var(--silver)}
+.sh{scroll-margin-top:16px}
+.themebtn{background:transparent;border:1.5px solid var(--line);border-radius:999px;font-family:var(--cond);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:5px 14px}
+.themebtn:hover{color:var(--ink);border-color:var(--ink)}
+
+/* nav */
+.nav{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;border-top:3px solid var(--ink);border-bottom:1px solid var(--line)}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;text-decoration:none;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:11px 12px 9px;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px;display:flex;align-items:center;gap:7px}
+.nav a:hover{color:var(--ink)}
+.nav a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--tan)}
+.nav a i{width:9px;height:9px;border-radius:2px;flex:none}
+.nav .sep{flex:none;width:1px;background:var(--line);margin:9px 6px}
+
+/* hero */
+.hero{margin-top:22px;background:var(--navy);color:var(--navy-ink);border-radius:14px;position:relative;
+  display:grid;grid-template-columns:1fr auto minmax(250px,320px);align-items:center;gap:clamp(18px,3vw,36px);padding:clamp(18px,2.6vw,28px) clamp(20px,3.5vw,40px)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), rgba(255,255,255,.045) calc(10% - 1px) 10%),
+    radial-gradient(ellipse at 85% 110%, rgba(90,174,230,.32), transparent 55%);}
+.hero{z-index:3}
+.hero > *{position:relative}
+.hero > .ctas{z-index:2}
+.pickcue{display:flex;align-items:center;gap:14px;color:var(--silver-hi);justify-self:end}
+.pickcue span{font-family:var(--cond);font-weight:800;font-size:22px;line-height:1.02;letter-spacing:.12em;text-transform:uppercase;text-align:right}
+.pickcue svg{width:48px;height:24px;flex:none}
+.back{display:inline-flex;align-items:center;gap:6px;font-family:var(--cond);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-muted);text-decoration:none;margin-bottom:14px}
+.back:hover{color:var(--navy-ink)}
+.back svg{width:13px;height:13px}
+.eyebrow{font-family:var(--cond);font-weight:700;font-size:17px;letter-spacing:.22em;text-transform:uppercase;color:var(--silver-hi)}
+.hero h1{font-family:var(--varsity);font-weight:400;font-size:clamp(64px,11vw,140px);line-height:.88;margin:10px 0 4px;letter-spacing:.02em;
+  color:var(--navy-ink);text-shadow:3px 3px 0 var(--navy-2),5px 5px 0 #C5CBD6}
+.stats{display:flex;flex-wrap:wrap;gap:clamp(16px,3vw,32px);margin-top:18px}
+.stats div{display:flex;align-items:baseline;gap:7px}
+.stats b{font-family:var(--varsity);font-weight:400;font-size:clamp(24px,3vw,32px);line-height:1}
+.stats small{font-family:var(--cond);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-muted)}
+.ctas{display:grid;grid-template-columns:1fr;gap:8px}
+.ctas .btn{width:100%}
+.ctas .btn .chev{margin-left:auto}
+.ctas .menu{left:auto;right:0}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--cond);font-weight:800;font-size:17px;letter-spacing:.06em;text-transform:uppercase;padding:10px 13px;border-radius:6px;white-space:nowrap;transition:transform .12s ease,box-shadow .12s ease,border-color .12s}
+.btn svg{width:16px;height:16px;transition:transform .12s}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover svg{transform:translateX(3px)}
+.btn.pri{background:var(--tan);color:#0F2244;box-shadow:0 4px 0 #2A78B3}
+.btn.pri:hover{box-shadow:0 6px 0 #2A78B3}
+.btn.sec{border:2px solid rgba(238,233,222,.5);color:var(--navy-ink)}
+.btn.sec:hover{border-color:var(--navy-ink)}
+.btn i{width:10px;height:10px;border-radius:2px;flex:none}
+.dd{position:relative}
+.dd summary{list-style:none;cursor:pointer;user-select:none}
+.dd summary::-webkit-details-marker{display:none}
+.dd summary .chev{width:15px;height:15px;transition:transform .15s}
+.dd summary:hover .chev{transform:none}
+.dd[open] summary{border-color:var(--navy-ink);background:rgba(255,255,255,.08)}
+.dd[open] summary .chev,.dd[open] summary:hover .chev{transform:rotate(180deg)}
+.menu{position:absolute;top:calc(100% + 8px);left:0;width:min(420px,calc(100vw - 32px));background:var(--panel);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:10px;padding:6px;box-shadow:0 16px 40px rgba(0,0,0,.35);z-index:20}
+.menu .mh{font-family:var(--cond);font-weight:700;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:6px 10px 4px}
+.menu a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 10px;border-radius:7px;text-decoration:none}
+.menu a:hover,.menu a:focus-visible{background:var(--sunk)}
+.menu .mt{min-width:0}
+.menu strong{display:block;font-family:var(--cond);font-weight:800;font-size:18px;letter-spacing:.03em;text-transform:uppercase;line-height:1.05}
+.menu small{display:block;font-family:var(--cond);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.menu .lec{flex:none;max-width:52%;text-align:right;font-family:var(--cond);font-weight:700;font-size:13.5px;line-height:1.2;color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:5px;padding:3px 8px}
+.menu a.all{justify-content:center;margin-top:4px;border-top:1px dashed var(--line);border-radius:0 0 7px 7px;font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.menu a.all:hover{color:var(--ink)}
+/* helpful links (matches CNS home) */
+.bench{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.lk{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--navy-2);border-radius:10px;padding:13px 16px;text-decoration:none;color:var(--ink);transition:transform .12s,box-shadow .12s}
+:root[data-theme="dark"] .lk{border-left-color:var(--silver)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lk{border-left-color:var(--silver)}}
+.lk:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(14,27,51,.14)}
+.lk .li{flex:none;width:38px;height:38px;border-radius:8px;background:var(--sunk);color:var(--silver);display:grid;place-items:center}
+.lk .li svg{width:19px;height:19px}
+.lk .lt{flex:1;min-width:0}
+.lk small{display:block;font-family:var(--cond);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.lk strong{display:block;font-family:var(--cond);font-weight:800;font-size:19px;line-height:1.05;text-transform:uppercase;letter-spacing:.02em}
+.lk .ext{flex:none;width:15px;height:15px;color:var(--muted)}
+.lk.feat{background:#C5CBD6;border-color:#C5CBD6;border-left-color:var(--navy);color:var(--navy);box-shadow:0 4px 0 #8C95A6}
+.lk.feat:hover{box-shadow:0 6px 0 #8C95A6}
+.lk.feat .li{background:var(--navy);color:var(--silver-hi)}
+.lk.feat small{color:var(--navy);opacity:.75}
+.lk.feat .ext{color:var(--navy)}
+.lk.feat .pdf{flex:none;font-family:var(--cond);font-weight:800;font-size:12.5px;letter-spacing:.12em;background:var(--navy);color:var(--silver-hi);border-radius:5px;padding:3px 8px}
+@media (max-width:980px){ .bench{grid-template-columns:1fr} }
+
+/* section header */
+.sh{display:flex;align-items:center;gap:14px;margin:28px 0 12px}
+.sh h2{font-family:var(--varsity);font-weight:400;font-size:24px;letter-spacing:.04em;margin:0;white-space:nowrap}
+.sh::after{content:"";flex:1;border-top:2px dashed var(--line)}
+
+/* how-to strip */
+.every{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.every > div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px}
+.every .n{font-family:var(--cond);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver)}
+.every h3{font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:21px;line-height:1;margin:3px 0 4px;letter-spacing:.02em}
+.every p{margin:0;color:var(--muted);font-size:14px;line-height:1.4}
+
+
+/* toolbar */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:12px 0;border-top:3px solid var(--ink);border-bottom:1px solid var(--line)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.fall,.fdd summary{background:var(--panel);border:1.5px solid var(--line);border-radius:999px;padding:5px 14px;font-family:var(--cond);font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.08em;color:var(--muted);display:inline-flex;align-items:center;gap:7px;cursor:pointer;white-space:nowrap}
+.fall:hover,.fdd summary:hover{color:var(--ink);border-color:var(--muted)}
+.fall[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
+.fdd{position:relative}
+.fdd summary{list-style:none;user-select:none}
+.fdd summary::-webkit-details-marker{display:none}
+.fdd summary i{width:9px;height:9px;border-radius:2px;background:var(--c)}
+.fdd summary .chev{width:13px;height:13px;transition:transform .15s}
+.fdd[open] summary .chev{transform:rotate(180deg)}
+.fdd.on summary{background:var(--c);border-color:var(--c);color:#fff}
+.fdd.on summary i{background:#fff}
+:root[data-theme="dark"] .fdd.on summary{color:#0B1424}
+:root[data-theme="dark"] .fdd.on summary i{background:#0B1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fdd.on summary{color:#0B1424}:root:not([data-theme="light"]) .fdd.on summary i{background:#0B1424}}
+.fmenu{position:absolute;top:calc(100% + 6px);left:0;min-width:270px;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:10px;padding:6px;box-shadow:0 14px 34px rgba(14,27,51,.22);z-index:20;display:flex;flex-direction:column}
+.fmenu button{background:none;border:0;text-align:left;padding:8px 10px;border-radius:6px;font-size:15px;display:flex;gap:8px;align-items:baseline}
+.fmenu button:first-child{font-family:var(--cond);font-weight:800;font-size:16px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px dashed var(--line);border-radius:6px 6px 0 0;margin-bottom:2px}
+.fmenu button b{font-family:var(--cond);font-weight:800;font-size:14px;letter-spacing:.04em;color:var(--c);min-width:58px}
+.fmenu button:hover,.fmenu button:focus-visible{background:var(--sunk)}
+.fmenu button[aria-current="true"]{background:var(--sunk);box-shadow:inset 3px 0 0 var(--c)}
+.search{position:relative;flex:0 1 300px;min-width:220px}
+.search input{width:100%;background:var(--panel);border:1.5px solid var(--line);border-radius:7px;padding:9px 12px 9px 34px;font-size:15px}
+.search input:focus{outline:none;border-color:var(--tan)}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted)}
+.count{font-family:var(--cond);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px}
+
+/* game list */
+.list{display:flex;flex-direction:column;gap:8px}
+.lhead,.row{display:grid;grid-template-columns:minmax(220px,1.4fr) 170px 80px minmax(260px,2fr) 28px;gap:16px;align-items:center}
+.row{position:relative}
+.row .stretch{color:inherit;text-decoration:none}
+.row .stretch::after{content:"";position:absolute;inset:0;border-radius:10px}
+.c-code b{display:block;font-family:var(--cond);font-weight:800;font-size:17px;letter-spacing:.04em;color:var(--c)}
+.c-code small{display:block;font-family:var(--cond);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.c-charts{display:flex;flex-wrap:wrap;gap:6px}
+.c-charts a{position:relative;z-index:1;display:inline-flex;align-items:center;gap:5px;font-family:var(--cond);font-weight:600;font-size:14px;color:var(--ink);text-decoration:none;background:var(--sunk);border:1px solid var(--line);border-radius:5px;padding:2px 8px}
+.c-charts a:hover{border-color:var(--c);background:var(--panel)}
+.c-charts svg{width:13px;height:13px;color:var(--c);flex:none}
+.c-charts .none{font-family:var(--cond);font-weight:600;font-size:14px;color:var(--muted)}
+.menu a.full{background:var(--sunk);margin-bottom:4px}
+.menu a.full strong::before{content:"\2605  ";color:var(--c)}
+.lhead{padding:0 18px 0 24px;font-family:var(--cond);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.row{background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:10px;padding:13px 18px;text-decoration:none;color:var(--ink);transition:transform .12s ease,box-shadow .12s ease,border-color .12s}
+.row:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(14,27,51,.14);border-color:var(--c)}
+.disc-l{display:flex;align-items:center;gap:6px;font-family:var(--cond);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.disc-l i{width:8px;height:8px;border-radius:2px;background:var(--c)}
+.c-name strong{display:block;font-family:var(--cond);font-weight:800;font-size:22px;line-height:1.02;text-transform:uppercase;letter-spacing:.02em;margin-top:2px}
+.type{display:inline-block;font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:.05em;text-transform:uppercase;border-radius:5px;padding:3px 9px;border:1.5px solid}
+.type.tb{color:var(--muted);border-color:var(--line);background:var(--sunk)}
+.type.tg{color:var(--ink);border-color:var(--ink);background:transparent}
+.type.tc{color:var(--silver);border-color:var(--silver);background:transparent}
+.type.tr{color:#fff;border-color:var(--navy);background:var(--navy)}
+:root[data-theme="dark"] .type.tr{color:#0B1424;border-color:var(--silver);background:var(--silver)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .type.tr{color:#0B1424;border-color:var(--silver);background:var(--silver)}}
+.c-mode{font-size:15px;color:var(--ink)}
+.c-q b{display:block;font-family:var(--varsity);font-weight:400;font-size:24px;line-height:1}
+.c-q small{font-family:var(--cond);font-weight:700;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.c-lec{display:flex;flex-wrap:wrap;gap:5px}
+.c-lec span{font-family:var(--cond);font-weight:600;font-size:14px;background:var(--sunk);border:1px solid var(--line);border-radius:5px;padding:1px 8px;white-space:nowrap}
+.c-lec span b{font-weight:800;color:var(--c);margin-right:5px}
+.c-go{color:var(--muted);display:grid;place-items:center}
+.c-go svg{width:16px;height:16px;transition:transform .12s}
+.row:hover .c-go{color:var(--c)}
+.row:hover .c-go svg{transform:translateX(3px)}
+.pick{display:none;align-items:center;gap:16px;padding:22px 24px;border:2px dashed var(--line);border-radius:12px;color:var(--muted)}
+.pick svg{flex:none;width:30px;height:30px;color:var(--silver)}
+.pick strong{display:block;font-family:var(--cond);font-weight:800;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);line-height:1.1}
+.pick span{font-size:15px}
+.empty{display:none;color:var(--muted);padding:26px;text-align:center;border:1.5px dashed var(--line);border-radius:10px;margin-top:8px}
+
+@media (max-width:1060px){
+  .lhead{display:none}
+  .row{grid-template-columns:1fr auto;grid-template-areas:"name go" "meta meta" "lec lec";gap:8px 12px}
+  .c-name{grid-area:name}
+  .c-go{grid-area:go}
+  .c-type,.c-mode,.c-q{grid-area:auto}
+  .row{display:grid}
+  .c-code{grid-column:1 / -1;grid-row:2;display:flex;align-items:baseline;gap:8px}
+  .c-charts{grid-column:1 / -1;grid-row:4}
+  .c-mode{grid-column:1 / -1;grid-row:3;font-size:14.5px;color:var(--muted)}
+  .c-q{grid-column:1 / -1;grid-row:4;display:flex;align-items:baseline;gap:6px}
+  .c-q b{display:inline;font-size:20px}
+  .c-q{grid-row:3}
+}
+.foot{margin-top:44px;padding-top:14px;border-top:3px solid var(--ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:1060px){ .every{grid-template-columns:1fr 1fr} }
+@media (max-width:620px){ .every{grid-template-columns:1fr} }
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;row-gap:12px}
+  .pickcue{justify-self:start;gap:10px}
+  .pickcue span{font-size:17px}
+  .pickcue span br{display:none}
+  .pickcue svg{width:22px;height:22px;transform:rotate(90deg)}
+}
+@media (max-width:480px){
+  .grid{grid-template-columns:1fr}
+  .search{flex-basis:100%}
+  .ctas{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative}
+  .ctas .dd{position:static}
+  .ctas .btn{width:100%;font-size:15px;padding:9px 10px;gap:7px}
+  .btn .chev{margin-left:auto}
+  .menu,.ctas .menu{width:auto;left:0;right:0}
+  .menu a{flex-direction:column;align-items:flex-start;gap:4px}
+  .menu .lec{max-width:none;text-align:left}
+  .menu a.all{align-items:center}
+}
+
+/* CNS discipline colors */
+:root{
+  --neu:#5B4BC4; --pat:#1F7F78; --pha:#2368A8; --psy:#B83B72; --mic:#4D7C2A; --drt:#C4631B; --cp:#B3263E;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --neu:#9B8DE0; --pat:#4FC1B6; --pha:#6FA8E8; --psy:#E77BAA; --mic:#8CC06A; --drt:#F0914A; --cp:#FF8394;
+}}
+:root[data-theme="dark"]{
+  --neu:#9B8DE0; --pat:#4FC1B6; --pha:#6FA8E8; --psy:#E77BAA; --mic:#8CC06A; --drt:#F0914A; --cp:#FF8394;
+}
+/* not-yet-built items */
+.nav span.soon{flex:none;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);opacity:.55;padding:11px 12px 9px;white-space:nowrap;display:flex;align-items:center;gap:7px;cursor:default}
+.nav span.soon i{width:9px;height:9px;border-radius:2px;flex:none}
+.nav span.soon em,.menu .soon em{font-style:normal;font-family:var(--cond);font-weight:800;font-size:10.5px;letter-spacing:.14em;border:1.5px solid var(--line);border-radius:999px;padding:0 6px;line-height:1.5}
+
+.menu .mnone{padding:8px 10px 10px;font-size:14.5px;color:var(--muted)}
+.fmenu{max-height:min(62vh,460px);overflow-y:auto}
+.ctas{grid-template-columns:1fr 1fr}
+.hero{grid-template-columns:1fr auto minmax(300px,420px)}
+@media (max-width:760px){.hero{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="word" href="../index.html">HOYA<span>DOCS</span></a>
+    <div class="topr">
+      <a class="toplink" href="#helpful-links">Helpful Links</a>
+      <a class="toplink" href="#guides">All Guides</a>
+      <button class="themebtn" id="theme" aria-label="Toggle light and dark theme">Theme</button>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="CNS sections">
+    <a href="../index.html">Home</a>
+    <span class="sep"></span>
+    <a href="../CNS-Games/index.html"><i style="background:var(--g)"></i>CNS Games</a>
+    <a href="../CNS-Study-Guides/index.html" aria-current="page"><i style="background:var(--s)"></i>Study Guides</a>
+    <span class="soon" title="Coming soon"><i style="background:var(--d)"></i>Path Database<em>Soon</em></span>
+    <span class="soon" title="Coming soon"><i style="background:var(--d)"></i>Pharm Database<em>Soon</em></span>
+    <span class="soon" title="Coming soon"><i style="background:var(--d)"></i>Disease Map<em>Soon</em></span>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Block 6 &middot; Central Nervous System</div>
+      <h1>Study<br>Guides</h1>
+    </div>
+    <div class="pickcue" aria-hidden="true">
+      <span>Select <br>a Guide</span>
+      <svg viewBox="0 0 48 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h42M34 3l10 9-10 9"/></svg>
+    </div>
+    <nav class="ctas" aria-label="Choose a guide by discipline">
+      <details class="dd" style="--c:var(--neu)">
+        <summary class="btn sec"><i style="background:var(--neu)"></i>Neuroscience<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="menu">
+          <div class="mh">Neuroscience &middot; 0 guides &middot; 33 lectures</div>
+          <div class="mnone">No Neuroscience guides yet &middot; new ones land here as they&rsquo;re built.</div>
+          <a class="all showall" href="#guides" data-d="neu">Show all Neuroscience guides below &darr;</a>
+        </div>
+      </details>
+      <details class="dd" style="--c:var(--pat)">
+        <summary class="btn sec"><i style="background:var(--pat)"></i>Pathology<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="menu">
+          <div class="mh">Pathology &middot; 0 guides &middot; 8 lectures</div>
+          <div class="mnone">No Pathology guides yet &middot; new ones land here as they&rsquo;re built.</div>
+          <a class="all showall" href="#guides" data-d="pat">Show all Pathology guides below &darr;</a>
+        </div>
+      </details>
+      <details class="dd" style="--c:var(--pha)">
+        <summary class="btn sec"><i style="background:var(--pha)"></i>Pharmacology<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="menu">
+          <div class="mh">Pharmacology &middot; 0 guides &middot; 19 lectures</div>
+          <div class="mnone">No Pharmacology guides yet &middot; new ones land here as they&rsquo;re built.</div>
+          <a class="all showall" href="#guides" data-d="pha">Show all Pharmacology guides below &darr;</a>
+        </div>
+      </details>
+      <details class="dd" style="--c:var(--psy)">
+        <summary class="btn sec"><i style="background:var(--psy)"></i>Psychiatry<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="menu">
+          <div class="mh">Psychiatry &middot; 0 guides &middot; 16 lectures</div>
+          <div class="mnone">No Psychiatry guides yet &middot; new ones land here as they&rsquo;re built.</div>
+          <a class="all showall" href="#guides" data-d="psy">Show all Psychiatry guides below &darr;</a>
+        </div>
+      </details>
+      <details class="dd" style="--c:var(--mic)">
+        <summary class="btn sec"><i style="background:var(--mic)"></i>Microbiology<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="menu">
+          <div class="mh">Microbiology &middot; 0 guides &middot; 2 lectures</div>
+          <div class="mnone">No Microbiology guides yet &middot; new ones land here as they&rsquo;re built.</div>
+          <a class="all showall" href="#guides" data-d="mic">Show all Microbiology guides below &darr;</a>
+        </div>
+      </details>
+      <details class="dd" style="--c:var(--drt)">
+        <summary class="btn sec"><i style="background:var(--drt)"></i>DRT<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="menu">
+          <div class="mh">DRT &middot; 0 guides &middot; 2 lectures</div>
+          <div class="mnone">No DRT guides yet &middot; new ones land here as they&rsquo;re built.</div>
+          <a class="all showall" href="#guides" data-d="drt">Show all DRT guides below &darr;</a>
+        </div>
+      </details>
+      <details class="dd" style="--c:var(--cp)">
+        <summary class="btn sec"><i style="background:var(--cp)"></i>Clinical Practice<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="menu">
+          <div class="mh">Clinical Practice &middot; 0 guides &middot; 3 lectures</div>
+          <div class="mnone">No Clinical Practice guides yet &middot; new ones land here as they&rsquo;re built.</div>
+          <a class="all showall" href="#guides" data-d="cp">Show all Clinical Practice guides below &darr;</a>
+        </div>
+      </details>
+    </nav>
+  
+  </section>
+
+  <div class="sh"><h2>How to Use</h2></div>
+  <section class="every" aria-label="What every guide contains">
+    <div><div class="n">01 &middot; Start here</div><h3>Stated Objectives</h3><p>Every guide opens with the lecture&rsquo;s LOs and a jump list.</p></div>
+    <div><div class="n">02 &middot; Learn</div><h3>LO by LO</h3><p>Each objective gets its own section: mechanism, anatomy, clinical, work-up.</p></div>
+    <div><div class="n">03 &middot; High yield</div><h3>Step 1 Callouts</h3><p>Flags what Step 1 tests, some of it past the lecture.</p></div>
+    <div><div class="n">04 &middot; Finish here</div><h3>Master Tables</h3><p>Side-by-side comparisons of the diseases most likely to be confused.</p></div>
+  </section>
+
+  <div class="sh" id="guides"><h2>All Guides</h2></div>
+
+  <div class="bar">
+    <div class="filters" role="group" aria-label="Filter guides">
+      <button type="button" class="fall" id="fall" aria-pressed="true">All</button>
+      <details class="fdd" data-d="neu" style="--c:var(--neu)">
+        <summary><i></i><span class="fl">Neuroscience</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="fmenu">
+          <button type="button" data-d="neu" data-l="">All Neuroscience</button>
+          <button type="button" data-d="neu" data-l="01"><b>CNS01</b>Cells of the CNS: Glia and Neurons</button>
+          <button type="button" data-d="neu" data-l="02"><b>CNS02</b>Neuronal Communication I: Synapses and Neurotransmitters</button>
+          <button type="button" data-d="neu" data-l="03"><b>CNS03</b>Neuronal Communication II: Neurotransmitters &amp; Neuromodulators</button>
+          <button type="button" data-d="neu" data-l="04"><b>CNS04</b>Spinal Cord &amp; Brainstem Anatomy</button>
+          <button type="button" data-d="neu" data-l="05"><b>CNS05</b>Somatic Sensations &amp; Ascending Pathways</button>
+          <button type="button" data-d="neu" data-l="09"><b>CNS09</b>Lab 1A/1B – Anatomy of Brain, Vascular System &amp; Meninges</button>
+          <button type="button" data-d="neu" data-l="12"><b>CNS12</b>Pain Pathways</button>
+          <button type="button" data-d="neu" data-l="13"><b>CNS13</b>Proprioception and Spinal Reflexes</button>
+          <button type="button" data-d="neu" data-l="15"><b>CNS15</b>Motor Cortex and Descending Pathways</button>
+          <button type="button" data-d="neu" data-l="16"><b>CNS16</b>Cerebellum &amp; Cerebellar Disorders</button>
+          <button type="button" data-d="neu" data-l="19"><b>CNS19</b>Lab 2A/2B – Finding Structures in the Brain</button>
+          <button type="button" data-d="neu" data-l="20"><b>CNS20</b>Motor Cranial Nerves</button>
+          <button type="button" data-d="neu" data-l="21"><b>CNS21</b>Eye Movement Control</button>
+          <button type="button" data-d="neu" data-l="24"><b>CNS24</b>Diencephalon</button>
+          <button type="button" data-d="neu" data-l="25"><b>CNS25</b>Hypothalamus</button>
+          <button type="button" data-d="neu" data-l="28"><b>CNS28</b>Telencephalon</button>
+          <button type="button" data-d="neu" data-l="29"><b>CNS29</b>Smell and Taste</button>
+          <button type="button" data-d="neu" data-l="34"><b>CNS34</b>Visual System I: Eye to Thalamus</button>
+          <button type="button" data-d="neu" data-l="35"><b>CNS35</b>Visual System II: Thalamus to Cortex</button>
+          <button type="button" data-d="neu" data-l="37"><b>CNS37</b>Lab 3A/3B – Spinal Cord Anatomy &amp; Sensory Pathways</button>
+          <button type="button" data-d="neu" data-l="38"><b>CNS38</b>Auditory System</button>
+          <button type="button" data-d="neu" data-l="44"><b>CNS44</b>Vestibular System</button>
+          <button type="button" data-d="neu" data-l="46"><b>CNS46</b>Basal Ganglia &amp; Basal Ganglia Diseases</button>
+          <button type="button" data-d="neu" data-l="51"><b>CNS51</b>Lab 4A/4B – Brainstem Anatomy &amp; Motor Pathways</button>
+          <button type="button" data-d="neu" data-l="55"><b>CNS55</b>Brain Plasticity</button>
+          <button type="button" data-d="neu" data-l="56"><b>CNS56</b>Learning &amp; Memory</button>
+          <button type="button" data-d="neu" data-l="58"><b>CNS58</b>Fear &amp; Reward</button>
+          <button type="button" data-d="neu" data-l="59"><b>CNS59</b>Behavioral &amp; Cognitive Neurology</button>
+          <button type="button" data-d="neu" data-l="60"><b>CNS60</b>Language Disorders</button>
+          <button type="button" data-d="neu" data-l="66"><b>CNS66</b>Lab 5A/5B – Cerebellum &amp; Basal Ganglia</button>
+          <button type="button" data-d="neu" data-l="74"><b>CNS74</b>Neurobiology of Sleep</button>
+          <button type="button" data-d="neu" data-l="75"><b>CNS75</b>Review of Ascending and Descending Pathways</button>
+          <button type="button" data-d="neu" data-l="82"><b>CNS82</b>Lab 6A/6B – Cortical Functions</button>
+        </div>
+      </details>
+      <details class="fdd" data-d="pat" style="--c:var(--pat)">
+        <summary><i></i><span class="fl">Pathology</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="fmenu">
+          <button type="button" data-d="pat" data-l="">All Pathology</button>
+          <button type="button" data-d="pat" data-l="07"><b>CNS07</b>Perinatal / Malformations</button>
+          <button type="button" data-d="pat" data-l="08"><b>CNS08</b>Edema / CNS Trauma</button>
+          <button type="button" data-d="pat" data-l="11"><b>CNS11</b>Cerebrovascular</button>
+          <button type="button" data-d="pat" data-l="40"><b>CNS40</b>Demyelinating Disease</button>
+          <button type="button" data-d="pat" data-l="52"><b>CNS52</b>Neoplasia</button>
+          <button type="button" data-d="pat" data-l="67"><b>CNS67</b>Neurodegenerative</button>
+          <button type="button" data-d="pat" data-l="79"><b>CNS79</b>CNS Path Lab Review</button>
+          <button type="button" data-d="pat" data-l="85"><b>CNS85</b>Patient Panel: CNS Diseases</button>
+        </div>
+      </details>
+      <details class="fdd" data-d="pha" style="--c:var(--pha)">
+        <summary><i></i><span class="fl">Pharmacology</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="fmenu">
+          <button type="button" data-d="pha" data-l="">All Pharmacology</button>
+          <button type="button" data-d="pha" data-l="14"><b>CNS14</b>Opioid Drugs</button>
+          <button type="button" data-d="pha" data-l="17"><b>CNS17</b>Clinical Use of Opioids</button>
+          <button type="button" data-d="pha" data-l="30"><b>CNS30</b>Treatment of Pain Conference</button>
+          <button type="button" data-d="pha" data-l="31"><b>CNS31</b>Local Anesthetics and Muscle Relaxants</button>
+          <button type="button" data-d="pha" data-l="39"><b>CNS39</b>Intravenous Anesthetics</button>
+          <button type="button" data-d="pha" data-l="47"><b>CNS47</b>Inhalational Anesthetics</button>
+          <button type="button" data-d="pha" data-l="48"><b>CNS48</b>Adjunct Therapeutics in Anesthesia</button>
+          <button type="button" data-d="pha" data-l="49"><b>CNS49</b>Anesthesia Conference</button>
+          <button type="button" data-d="pha" data-l="62"><b>CNS62</b>Treatment of Migraine</button>
+          <button type="button" data-d="pha" data-l="63"><b>CNS63</b>Treatment of Parkinson&#x27;s Disease</button>
+          <button type="button" data-d="pha" data-l="71"><b>CNS71</b>Drugs for Mood Disorders I</button>
+          <button type="button" data-d="pha" data-l="72"><b>CNS72</b>Drugs for Mood Disorders II</button>
+          <button type="button" data-d="pha" data-l="73"><b>CNS73</b>Cannabinoids / Herbal Supplements</button>
+          <button type="button" data-d="pha" data-l="76"><b>CNS76</b>Benzodiazepines / Hypnotics</button>
+          <button type="button" data-d="pha" data-l="78"><b>CNS78</b>Antipsychotics</button>
+          <button type="button" data-d="pha" data-l="86"><b>CNS86</b>Anti-Seizure Medications</button>
+          <button type="button" data-d="pha" data-l="90"><b>CNS90</b>Adverse Drug Reactions and Drug Allergy</button>
+          <button type="button" data-d="pha" data-l="93"><b>CNS93</b>Epilepsy Conference</button>
+          <button type="button" data-d="pha" data-l="94"><b>CNS94</b>Drugs in the Elderly</button>
+        </div>
+      </details>
+      <details class="fdd" data-d="psy" style="--c:var(--psy)">
+        <summary><i></i><span class="fl">Psychiatry</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="fmenu">
+          <button type="button" data-d="psy" data-l="">All Psychiatry</button>
+          <button type="button" data-d="psy" data-l="32"><b>CNS32</b>Introduction to Psychiatry</button>
+          <button type="button" data-d="psy" data-l="33"><b>CNS33</b>IL – Child Psychiatry: Autism and ADHD</button>
+          <button type="button" data-d="psy" data-l="42"><b>CNS42</b>Introduction to Psychodynamic and Behavior Models of Therapy</button>
+          <button type="button" data-d="psy" data-l="45"><b>CNS45</b>Autism / ADHD / Normal Development</button>
+          <button type="button" data-d="psy" data-l="61"><b>CNS61</b>Psychosis &amp; Schizophrenia</button>
+          <button type="button" data-d="psy" data-l="64"><b>CNS64</b>Suicide / Depression / Bipolar</button>
+          <button type="button" data-d="psy" data-l="69"><b>CNS69</b>Anxiety and Obsessive Compulsive Disorders</button>
+          <button type="button" data-d="psy" data-l="77"><b>CNS77</b>Depression in Women</button>
+          <button type="button" data-d="psy" data-l="80"><b>CNS80</b>Trauma &amp; PTSD</button>
+          <button type="button" data-d="psy" data-l="83"><b>CNS83</b>Delirium and Dementia</button>
+          <button type="button" data-d="psy" data-l="84"><b>CNS84</b>Substance-Related and Addictive Disorders Patient Panel</button>
+          <button type="button" data-d="psy" data-l="88"><b>CNS88</b>Eating Disorders</button>
+          <button type="button" data-d="psy" data-l="89"><b>CNS89</b>Mood Disorders in Children and Adolescents</button>
+          <button type="button" data-d="psy" data-l="91"><b>CNS91</b>Somatic Symptom Disorders</button>
+          <button type="button" data-d="psy" data-l="92"><b>CNS92</b>Personality Disorders</button>
+          <button type="button" data-d="psy" data-l="97"><b>CNS97</b>Psychopharmacology Wrap-Up</button>
+        </div>
+      </details>
+      <details class="fdd" data-d="mic" style="--c:var(--mic)">
+        <summary><i></i><span class="fl">Microbiology</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="fmenu">
+          <button type="button" data-d="mic" data-l="">All Microbiology</button>
+          <button type="button" data-d="mic" data-l="23"><b>CNS23</b>Viral Meningitis</button>
+          <button type="button" data-d="mic" data-l="54"><b>CNS54</b>Bacterial Infections of the CNS</button>
+        </div>
+      </details>
+      <details class="fdd" data-d="drt" style="--c:var(--drt)">
+        <summary><i></i><span class="fl">DRT</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="fmenu">
+          <button type="button" data-d="drt" data-l="">All DRT</button>
+          <button type="button" data-d="drt" data-l="06"><b>CNS06</b>Neuroradiology</button>
+          <button type="button" data-d="drt" data-l="53"><b>CNS53</b>Headache Clinical Correlate</button>
+        </div>
+      </details>
+      <details class="fdd" data-d="cp" style="--c:var(--cp)">
+        <summary><i></i><span class="fl">Clinical Practice</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="fmenu">
+          <button type="button" data-d="cp" data-l="">All Clinical Practice</button>
+          <button type="button" data-d="cp" data-l="22"><b>CNS22</b>Advanced Neurological Exam</button>
+          <button type="button" data-d="cp" data-l="41"><b>CNS41</b>Mental Status Exam</button>
+          <button type="button" data-d="cp" data-l="68"><b>CNS68</b>Pediatric / Geriatric Exam</button>
+        </div>
+      </details>
+    </div>
+    <label class="search">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="4.8"/><path d="m10.6 10.6 3.6 3.6"/></svg>
+      <input id="q" type="search" placeholder="Search guides or topics…" aria-label="Search guides">
+    </label>
+  </div>
+  <div class="count" id="count" aria-live="polite"></div>
+
+  <div class="list" role="list">
+    <div class="lhead" aria-hidden="true"><span>Guide</span><span>Lecture</span><span>LOs</span><span>Charts</span><span></span></div>
+    <!-- Add one .row per guide here (see Example/HEM-Study-Guides/index.html for row markup). data-l uses the 2-digit CNS code, e.g. data-l="04". -->
+  </div>
+  <div class="pick" id="pick">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <div><strong>Pick a subject or lecture</strong><span>Choose a discipline or lecture above, or tap All to see every guide.</span></div>
+  </div>
+  <div class="empty" id="empty">No CNS guides here yet. New guides show up in this list as they&rsquo;re built.</div>
+
+  <div class="sh" id="helpful-links"><h2>Helpful Links</h2></div>
+  <section class="bench" aria-label="Helpful links">
+    <a class="lk feat" href="https://drive.google.com/drive/folders/16SVxR2aDhUdc8VJ8mYtz4lukkoLxVuXn" target="_blank" rel="noopener">
+      <div class="li" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/></svg></div>
+      <div class="lt"><small>Google Drive &middot; Folder</small><strong>UWorld QIDs &times; In-House Lectures</strong></div>
+      <svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3H3v10h10v-3M9 2h5v5M14 2 7.5 8.5"/></svg>
+    </a>
+    <a class="lk" href="https://drive.google.com/drive/folders/1rfYf6iQgZNuGtUiGFUNWYg5ZWKBkTppD?usp=drive_link" target="_blank" rel="noopener">
+      <div class="li" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="7" y="3" width="13" height="15" rx="2"/><path d="M4 7v12a2 2 0 0 0 2 2h10"/></svg></div>
+      <div class="lt"><small>Google Drive &middot; Folder</small><strong>HoyaDocs Anki Decks</strong></div>
+      <svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3H3v10h10v-3M9 2h5v5M14 2 7.5 8.5"/></svg>
+    </a>
+    <a class="lk" href="https://docs.google.com/spreadsheets/d/1lcXNqU4aKg72C3AAQ3ktiDc5wfvX08q7gM1MA1fRtEw/edit?usp=sharing" target="_blank" rel="noopener">
+      <div class="li" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M3.5 9h17M3.5 14.5h17M9.5 9v11.5"/></svg></div>
+      <div class="lt"><small>Google Sheets</small><strong>Third Party Resource Sheet</strong></div>
+      <svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3H3v10h10v-3M9 2h5v5M14 2 7.5 8.5"/></svg>
+    </a>
+  </section>
+
+  <footer class="foot">
+    <div class="rev">HoyaDocs &middot; Block 6 &middot; CNS &middot; CNS Study Guides</div>
+    <div class="rev">Rev 1 &middot; Updated Oct 20, 2026</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('theme');
+  var root = document.documentElement;
+  try{
+    var saved = localStorage.getItem('hoyadocs-theme');
+    if(saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+  }catch(e){}
+  btn.addEventListener('click', function(){
+    var isDark = root.getAttribute('data-theme') === 'dark' ||
+      (!root.hasAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = isDark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('hoyadocs-theme', next); }catch(e){}
+  });
+})();
+(function(){
+  var q=document.getElementById('q'), rows=[].slice.call(document.querySelectorAll('.row')),
+      fall=document.getElementById('fall'), fdds=[].slice.call(document.querySelectorAll('.fdd')),
+      dds=[].slice.call(document.querySelectorAll('.dd')), all=dds.concat(fdds),
+      count=document.getElementById('count'), empty=document.getElementById('empty'),
+      pick=document.getElementById('pick'), lhead=document.querySelector('.lhead');
+  var LABEL={neu:'Neuroscience',pat:'Pathology',pha:'Pharmacology',psy:'Psychiatry',mic:'Microbiology',drt:'DRT',cp:'Clinical Practice'};
+  var st={d:null,l:''};
+  function apply(){
+    var term=q.value.trim().toLowerCase(), n=0;
+    rows.forEach(function(r){
+      var none=st.d===null&&!term;
+      var ok=!none&&(!st.d||r.dataset.d===st.d)&&(!st.l||(' '+r.dataset.l+' ').indexOf(' '+st.l+' ')>-1)&&(!term||(r.textContent+' '+(r.dataset.t||'')).toLowerCase().indexOf(term)>-1);
+      r.style.display=ok?'':'none'; if(ok)n++;
+    });
+    fall.setAttribute('aria-pressed',st.d===''?'true':'false');
+    lhead.style.display=n?'':'none';
+    fdds.forEach(function(f){
+      var on=f.dataset.d===st.d; f.classList.toggle('on',on);
+      f.querySelector('.fl').textContent=LABEL[f.dataset.d]+(on&&st.l?' \u00b7 CNS'+st.l:'');
+      [].forEach.call(f.querySelectorAll('.fmenu button'),function(b){b.setAttribute('aria-current',(on&&b.dataset.l===st.l)?'true':'false');});
+    });
+    var idle=st.d===null&&!term;
+    count.textContent=idle?'':'Showing '+n+' of '+rows.length+(rows.length===1?' guide':' guides');
+    pick.style.display=idle?'flex':'none';
+    empty.style.display=(!idle&&!n)?'block':'none';
+  }
+  function set(d,l){st.d=d;st.l=l||'';all.forEach(function(x){x.open=false;});apply();}
+  fall.addEventListener('click',function(){set('','');});
+  [].forEach.call(document.querySelectorAll('.fmenu button'),function(b){b.addEventListener('click',function(){set(b.dataset.d,b.dataset.l);});});
+  [].forEach.call(document.querySelectorAll('.showall'),function(a){a.addEventListener('click',function(){q.value='';set(a.dataset.d,'');});});
+  q.addEventListener('input',apply);
+  all.forEach(function(d){d.addEventListener('toggle',function(){if(d.open)all.forEach(function(x){if(x!==d)x.open=false;});});});
+  document.addEventListener('click',function(e){all.forEach(function(d){if(d.open&&!d.contains(e.target))d.open=false;});});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')all.forEach(function(d){if(d.open){d.open=false;d.querySelector('summary').focus();}});});
+  apply();
+})();
+</script>
+</body>
+</html>
