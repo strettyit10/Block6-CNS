@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,40 +28,6 @@
   --cond:"Barlow Condensed","Arial Narrow",sans-serif;
   --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --ground:#0B1424; --panel:#13203A; --sunk:#0F1A30; --line:#26365A;
-    --ink:#E8E4DA; --muted:#9BA5B9;
-    --navy:#060D1A; --navy-2:#13254A; --navy-ink:#EEE9DE; --navy-muted:#8E98AE;
-    --tan:#7CC4F0; --tan-ink:#9DD3F5;
-    --silver:#C3C9D4; --silver-hi:#C5CBD6;
-    --hy-bg:#342D0E; --hy-line:#C9A227; --hy-ink:#F4E3A1;
-    --g:#9B8DE0; --s:#F0914A; --d:#4FC1B6; --a:#F07186;
-    --emb:#6FA8E8; --emb-ink:#9CC4F0; --emb-soft:#142A40;
-    --his:#E77BAA; --his-ink:#EE9BC0; --his-soft:#3A1A2A;
-    --neu:#9B8DE0; --neu-ink:#BDB2F0; --neu-soft:#262043;
-    --ddx:#FF8394; --ddx-ink:#FFADB8; --ddx-soft:#3A1820;
-    --his:#F0A65A; --his-ink:#F6C48D; --his-soft:#3A2814;
-    --pat:#4FC1B6; --pat-ink:#7FD6CD; --pat-soft:#13332F;
-    --pha:#9B8DE0; --pha-ink:#BDB2F0; --pha-soft:#262043;
-  }
-}
-:root[data-theme="dark"]{
-    --ground:#0B1424; --panel:#13203A; --sunk:#0F1A30; --line:#26365A;
-    --ink:#E8E4DA; --muted:#9BA5B9;
-    --navy:#060D1A; --navy-2:#13254A; --navy-ink:#EEE9DE; --navy-muted:#8E98AE;
-    --tan:#7CC4F0; --tan-ink:#9DD3F5;
-    --silver:#C3C9D4; --silver-hi:#C5CBD6;
-    --hy-bg:#342D0E; --hy-line:#C9A227; --hy-ink:#F4E3A1;
-    --g:#9B8DE0; --s:#F0914A; --d:#4FC1B6; --a:#F07186;
-    --emb:#6FA8E8; --emb-ink:#9CC4F0; --emb-soft:#142A40;
-    --his:#E77BAA; --his-ink:#EE9BC0; --his-soft:#3A1A2A;
-    --neu:#9B8DE0; --neu-ink:#BDB2F0; --neu-soft:#262043;
-    --ddx:#FF8394; --ddx-ink:#FFADB8; --ddx-soft:#3A1820;
-    --his:#F0A65A; --his-ink:#F6C48D; --his-soft:#3A2814;
-    --pat:#4FC1B6; --pat-ink:#7FD6CD; --pat-soft:#13332F;
-    --pha:#9B8DE0; --pha-ink:#BDB2F0; --pha-soft:#262043;
-}
 *{box-sizing:border-box}
 html,body{background:var(--ground);color:var(--ink)}
 body{font:16px/1.5 var(--body);margin:0;padding:0 16px 56px}
@@ -81,8 +47,6 @@ html{scroll-behavior:smooth}
 .toplink{font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:5px 2px;border-bottom:2px solid transparent}
 .toplink:hover{border-bottom-color:var(--silver)}
 .sh{scroll-margin-top:16px}
-.themebtn{background:transparent;border:1.5px solid var(--line);border-radius:999px;font-family:var(--cond);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:5px 14px}
-.themebtn:hover{color:var(--ink);border-color:var(--ink)}
 
 /* nav */
 .nav{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;border-top:3px solid var(--ink);border-bottom:1px solid var(--line)}
@@ -149,8 +113,6 @@ html{scroll-behavior:smooth}
 /* helpful links (matches CNS home) */
 .bench{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .lk{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--navy-2);border-radius:10px;padding:13px 16px;text-decoration:none;color:var(--ink);transition:transform .12s,box-shadow .12s}
-:root[data-theme="dark"] .lk{border-left-color:var(--silver)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lk{border-left-color:var(--silver)}}
 .lk:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(14,27,51,.14)}
 .lk .li{flex:none;width:38px;height:38px;border-radius:8px;background:var(--sunk);color:var(--silver);display:grid;place-items:center}
 .lk .li svg{width:19px;height:19px}
@@ -192,9 +154,6 @@ html{scroll-behavior:smooth}
 .fdd[open] summary .chev{transform:rotate(180deg)}
 .fdd.on summary{background:var(--c);border-color:var(--c);color:#fff}
 .fdd.on summary i{background:#fff}
-:root[data-theme="dark"] .fdd.on summary{color:#0B1424}
-:root[data-theme="dark"] .fdd.on summary i{background:#0B1424}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fdd.on summary{color:#0B1424}:root:not([data-theme="light"]) .fdd.on summary i{background:#0B1424}}
 .fmenu{position:absolute;top:calc(100% + 6px);left:0;min-width:270px;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:10px;padding:6px;box-shadow:0 14px 34px rgba(14,27,51,.22);z-index:20;display:flex;flex-direction:column}
 .fmenu button{background:none;border:0;text-align:left;padding:8px 10px;border-radius:6px;font-size:15px;display:flex;gap:8px;align-items:baseline}
 .fmenu button:first-child{font-family:var(--cond);font-weight:800;font-size:16px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px dashed var(--line);border-radius:6px 6px 0 0;margin-bottom:2px}
@@ -221,8 +180,6 @@ html{scroll-behavior:smooth}
 .type.tg{color:var(--ink);border-color:var(--ink);background:transparent}
 .type.tc{color:var(--silver);border-color:var(--silver);background:transparent}
 .type.tr{color:#fff;border-color:var(--navy);background:var(--navy)}
-:root[data-theme="dark"] .type.tr{color:#0B1424;border-color:var(--silver);background:var(--silver)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .type.tr{color:#0B1424;border-color:var(--silver);background:var(--silver)}}
 .c-mode{font-size:15px;color:var(--ink)}
 .c-q b{display:block;font-family:var(--varsity);font-weight:400;font-size:24px;line-height:1}
 .c-q small{font-family:var(--cond);font-weight:700;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -277,18 +234,10 @@ html{scroll-behavior:smooth}
   .menu a.all{align-items:center}
 }
 :root{--hst:#B83B72}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--hst:#E77BAA}}
-:root[data-theme="dark"]{--hst:#E77BAA}
 
 /* CNS discipline colors */
 :root{
   --neu:#5B4BC4; --pat:#1F7F78; --pha:#2368A8; --psy:#B83B72; --mic:#4D7C2A; --drt:#C4631B; --cp:#B3263E;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --neu:#9B8DE0; --pat:#4FC1B6; --pha:#6FA8E8; --psy:#E77BAA; --mic:#8CC06A; --drt:#F0914A; --cp:#FF8394;
-}}
-:root[data-theme="dark"]{
-  --neu:#9B8DE0; --pat:#4FC1B6; --pha:#6FA8E8; --psy:#E77BAA; --mic:#8CC06A; --drt:#F0914A; --cp:#FF8394;
 }
 /* not-yet-built items */
 .nav span.soon{flex:none;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);opacity:.55;padding:11px 12px 9px;white-space:nowrap;display:flex;align-items:center;gap:7px;cursor:default}
@@ -310,7 +259,6 @@ html{scroll-behavior:smooth}
     <div class="topr">
       <a class="toplink" href="#helpful-links">Helpful Links</a>
       <a class="toplink" href="#games">All Games</a>
-      <button class="themebtn" id="theme" aria-label="Toggle light and dark theme">Theme</button>
     </div>
   </header>
 
@@ -406,10 +354,10 @@ html{scroll-behavior:smooth}
 
   <div class="sh"><h2>How to Play</h2></div>
   <section class="every" aria-label="How to use the games">
-    <div><div class="n">01 &middot; Learn</div><h3>Structure Builders</h3><p>Fill in structures box by box; Drill repeats what you miss.</p></div>
-    <div><div class="n">02 &middot; Test</div><h3>Boss Gauntlets</h3><p>Clinical vignettes boss by boss, solo or 2-player co-op.</p></div>
-    <div><div class="n">03 &middot; Review</div><h3>Creature Campaigns</h3><p>RPG mixing every lecture in a subject. Best right before the exam.</p></div>
-    <div><div class="n">04 &middot; Exam-ready &middot; USMLE style</div><h3>Bell Ringer</h3><p>Board-style vignettes with gross, X-ray and slide stations. 2-player duel: alternate turns or buzzer race.</p></div>
+    <div><div class="n">01 &middot; Learn</div><h3>Structure Builders</h3></div>
+    <div><div class="n">02 &middot; Test</div><h3>Boss Gauntlets</h3></div>
+    <div><div class="n">03 &middot; Review</div><h3>Creature Campaigns</h3></div>
+    <div><div class="n">04 &middot; Exam-ready &middot; USMLE style</div><h3>Bell Ringer</h3></div>
   </section>
 
   <div class="sh" id="games"><h2>All Games</h2></div>
@@ -699,21 +647,6 @@ html{scroll-behavior:smooth}
 </div>
 
 <script>
-(function(){
-  var btn = document.getElementById('theme');
-  var root = document.documentElement;
-  try{
-    var saved = localStorage.getItem('hoyadocs-theme');
-    if(saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
-  }catch(e){}
-  btn.addEventListener('click', function(){
-    var isDark = root.getAttribute('data-theme') === 'dark' ||
-      (!root.hasAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    var next = isDark ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try{ localStorage.setItem('hoyadocs-theme', next); }catch(e){}
-  });
-})();
 (function(){
   var q=document.getElementById('q'), rows=[].slice.call(document.querySelectorAll('.row')),
       fall=document.getElementById('fall'), fdds=[].slice.call(document.querySelectorAll('.fdd')),
