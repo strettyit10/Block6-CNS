@@ -249,6 +249,36 @@ html{scroll-behavior:smooth}
 .ctas{grid-template-columns:1fr 1fr}
 .hero{grid-template-columns:1fr auto minmax(300px,420px)}
 @media (max-width:760px){.hero{grid-template-columns:1fr}}
+
+/* ---- featured game (added Oct 21, 2026) ---- */
+.feat{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--neu);
+  border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--ink);
+  box-shadow:0 2px 0 var(--line);transition:transform .12s,box-shadow .12s}
+.feat:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--line)}
+.feat:focus-visible{outline:3px solid var(--neu);outline-offset:3px}
+.feat canvas{width:92px;height:92px;border-radius:10px;background:var(--sunk);flex:none}
+.feat .ft{min-width:0}
+.feat .kick{font-family:var(--cond);font-weight:800;font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--neu);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.feat .kick em{font-style:normal;background:var(--neu);color:#fff;border-radius:999px;padding:1px 8px;letter-spacing:.1em}
+.feat h3{font-family:var(--cond);font-weight:800;font-size:27px;line-height:1.02;
+  text-transform:uppercase;letter-spacing:.015em;margin:3px 0 4px}
+.feat p{margin:0;font-size:14px;color:var(--muted);max-width:68ch}
+.feat .fchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.feat .fchips span{font-family:var(--cond);font-weight:700;font-size:11.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 9px}
+.feat .fstats{display:flex;gap:16px;flex:none;text-align:center}
+.feat .fstats div b{display:block;font-family:var(--cond);font-weight:800;font-size:26px;line-height:1;color:var(--neu)}
+.feat .fstats div span{font-family:var(--cond);font-weight:700;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted)}
+@media (max-width:860px){
+  .feat{grid-template-columns:auto 1fr;gap:14px;align-items:start}
+  .feat canvas{width:72px;height:72px}
+  .feat .fstats{grid-column:1 / -1;justify-content:flex-start;gap:22px;
+    border-top:1px dashed var(--line);padding-top:10px;text-align:left}
+}
+@media (max-width:520px){ .feat canvas{width:64px;height:64px} .feat h3{font-size:23px} }
 </style>
 </head>
 <body>
@@ -286,6 +316,7 @@ html{scroll-behavior:smooth}
         <summary class="btn sec"><i style="background:var(--neu)"></i>Neuroscience<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
         <div class="menu">
           <div class="mh">Neuroscience &middot; 10 games &middot; 33 lectures</div>
+          <a href="HoyaDocs_CNS_Week1_Neuraxis_Siege_Boss_Battle.html"><span class="mt"><strong>Neuraxis Siege</strong><small>Boss Battle &middot; Week 1 campaign: 45 concepts from CNS01&ndash;08 and CNS12&ndash;16, each fought twice</small></span><span class="lec">Week 1</span></a>
           <a href="CNS01_Builder.html"><span class="mt"><strong>CNS01 Builder</strong><small>Structure Builder &middot; Cells of the CNS: Glia and Neurons</small></span><span class="lec">CNS01</span></a>
           <a href="CNS02_Builder.html"><span class="mt"><strong>CNS02 Builder</strong><small>Structure Builder &middot; Neuronal Communication I: Synapses and Neurotransmitters</small></span><span class="lec">CNS02</span></a>
           <a href="CNS03_Builder.html"><span class="mt"><strong>CNS03 Builder</strong><small>Structure Builder &middot; Neuronal Communication II: Neurotransmitters &amp; Neuromodulators</small></span><span class="lec">CNS03</span></a>
@@ -295,7 +326,6 @@ html{scroll-behavior:smooth}
           <a href="CNS13_Builder.html"><span class="mt"><strong>CNS13 Builder</strong><small>Structure Builder &middot; Proprioception and Spinal Reflexes</small></span><span class="lec">CNS13</span></a>
           <a href="CNS15_Builder.html"><span class="mt"><strong>CNS15 Builder</strong><small>Structure Builder &middot; Motor Cortex and Descending Pathways</small></span><span class="lec">CNS15</span></a>
           <a href="CNS16_Builder.html"><span class="mt"><strong>CNS16 Builder</strong><small>Structure Builder &middot; Cerebellum &amp; Cerebellar Disorders</small></span><span class="lec">CNS16</span></a>
-          <a href="HoyaDocs_CNS_Week1_Neuraxis_Siege_Boss_Battle.html"><span class="mt"><strong>Neuraxis Siege</strong><small>Boss Battle &middot; Week 1 campaign: 45 concepts from CNS01&ndash;08 and CNS12&ndash;16, each fought twice</small></span><span class="lec">Week 1</span></a>
           <a class="all showall" href="#games" data-d="neu">Show all Neuroscience games below &darr;</a>
         </div>
       </details>
@@ -303,10 +333,10 @@ html{scroll-behavior:smooth}
         <summary class="btn sec"><i style="background:var(--pat)"></i>Pathology<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
         <div class="menu">
           <div class="mh">Pathology &middot; 4 games &middot; 8 lectures</div>
+          <a href="HoyaDocs_CNS_Week1_Neuraxis_Siege_Boss_Battle.html"><span class="mt"><strong>Neuraxis Siege</strong><small>Boss Battle &middot; Week 1 campaign: 45 concepts from CNS01&ndash;08 and CNS12&ndash;16, each fought twice</small></span><span class="lec">Week 1</span></a>
           <a href="CNS07_Builder.html"><span class="mt"><strong>CNS07 Builder</strong><small>Structure Builder &middot; Perinatal / Malformations</small></span><span class="lec">CNS07</span></a>
           <a href="CNS08_Builder.html"><span class="mt"><strong>CNS08 Builder</strong><small>Structure Builder &middot; Edema / CNS Trauma</small></span><span class="lec">CNS08</span></a>
           <a href="CNS11_Builder.html"><span class="mt"><strong>CNS11 Builder</strong><small>Structure Builder &middot; Cerebrovascular</small></span><span class="lec">CNS11</span></a>
-          <a href="HoyaDocs_CNS_Week1_Neuraxis_Siege_Boss_Battle.html"><span class="mt"><strong>Neuraxis Siege</strong><small>Boss Battle &middot; Week 1 campaign: 45 concepts from CNS01&ndash;08 and CNS12&ndash;16, each fought twice</small></span><span class="lec">Week 1</span></a>
           <a class="all showall" href="#games" data-d="pat">Show all Pathology games below &darr;</a>
         </div>
       </details>
@@ -353,6 +383,23 @@ html{scroll-behavior:smooth}
     </nav>
   
   </section>
+
+
+  <div class="sh"><h2>New This Week</h2></div>
+  <a class="feat" href="HoyaDocs_CNS_Week1_Neuraxis_Siege_Boss_Battle.html">
+    <canvas id="featCanvas" width="184" height="184" aria-hidden="true"></canvas>
+    <div class="ft">
+      <div class="kick"><em>New</em> Boss Battle &middot; Week 1 campaign</div>
+      <h3>Neuraxis Siege</h3>
+      <p>Eleven lieutenants and a final boss hold the Week 1 neuraxis, from the cortical map down to the conus. Every concept is fought twice &mdash; once as a clinical vignette, once from a different angle &mdash; and the two never arrive back to back. Three hearts, missed items come back, full teardown after each answer.</p>
+      <div class="fchips"><span>CNS01&ndash;08</span><span>CNS12&ndash;16</span><span>45 concepts &times; 2</span><span>Decode &middot; Why &middot; Every choice</span></div>
+    </div>
+    <div class="fstats">
+      <div><b>90</b><span>Items</span></div>
+      <div><b>12</b><span>Bosses</span></div>
+      <div><b>3</b><span>Hearts</span></div>
+    </div>
+  </a>
 
   <div class="sh"><h2>How to Play</h2></div>
   <section class="every" aria-label="How to use the games">
@@ -693,6 +740,49 @@ html{scroll-behavior:smooth}
   document.addEventListener('click',function(e){all.forEach(function(d){if(d.open&&!d.contains(e.target))d.open=false;});});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')all.forEach(function(d){if(d.open){d.open=false;d.querySelector('summary').focus();}});});
   apply();
+})();
+</script>
+
+<script>
+/* featured card artwork: the final boss, drawn from the game's own sprite code */
+(function(){
+  var cv=document.getElementById('featCanvas'); if(!cv||!cv.getContext)return;
+  var c=cv.getContext('2d'),S=cv.width,u=S/264,cx=S/2,cy=S/2;
+  var g=c.createRadialGradient(cx,cy,S*.08,cx,cy,S*.52);
+  g.addColorStop(0,'#EDF1F6');g.addColorStop(.74,'#D9E1EC');g.addColorStop(1,'#2E3650');
+  c.fillStyle=g;c.fillRect(0,0,S,S);
+  function brain(cx,cy,r,fill,edge){
+    c.beginPath();c.moveTo(cx-r,cy+r*.18);
+    c.bezierCurveTo(cx-r*1.08,cy-r*.42,cx-r*.62,cy-r*.98,cx-r*.12,cy-r*.92);
+    c.bezierCurveTo(cx+r*.34,cy-r*1.04,cx+r*.96,cy-r*.66,cx+r*.98,cy-r*.08);
+    c.bezierCurveTo(cx+r*1.02,cy+r*.44,cx+r*.56,cy+r*.78,cx+r*.08,cy+r*.72);
+    c.bezierCurveTo(cx-r*.34,cy+r*.82,cx-r*.86,cy+r*.62,cx-r,cy+r*.18);
+    c.closePath();
+    var lg=c.createLinearGradient(cx-r,cy-r,cx+r,cy+r);
+    lg.addColorStop(0,'#FBE6EC');lg.addColorStop(.55,fill);lg.addColorStop(1,edge);
+    c.fillStyle=lg;c.fill();c.strokeStyle=edge;c.lineWidth=r*.05;c.stroke();
+  }
+  brain(cx,cy-4*u,100*u,'#D7A8E9','#7A4E96');
+  c.save();c.strokeStyle='rgba(90,50,120,.42)';c.lineWidth=4.2*u;c.lineCap='round';
+  for(var i=0;i<7;i++){var yy=cy-10*u-63*u+126*u*(i+.5)/7;c.beginPath();c.moveTo(cx-4*u-78*u,yy);
+    for(var k=0;k<=6;k++){c.lineTo(cx-4*u-78*u+156*u*k/6,yy+Math.sin(k*1.8+i*1.3)*7*u);}c.stroke();}
+  c.restore();
+  c.beginPath();c.moveTo(cx+4*u,cy+62*u);c.quadraticCurveTo(cx+16*u,cy+92*u,cx+4*u,cy+116*u);
+  c.lineTo(cx-26*u,cy+116*u);c.quadraticCurveTo(cx-16*u,cy+88*u,cx-26*u,cy+60*u);c.closePath();
+  c.fillStyle='#C8A286';c.fill();c.strokeStyle='#8A6243';c.lineWidth=4*u;c.stroke();
+  c.fillStyle='#F2C14E';c.strokeStyle='#C99A00';c.lineWidth=3.4*u;
+  c.beginPath();c.moveTo(cx-56*u,cy-86*u);c.lineTo(cx-34*u,cy-124*u);c.lineTo(cx-10*u,cy-92*u);
+  c.lineTo(cx+14*u,cy-128*u);c.lineTo(cx+36*u,cy-90*u);c.lineTo(cx+54*u,cy-118*u);
+  c.lineTo(cx+58*u,cy-78*u);c.lineTo(cx-58*u,cy-74*u);c.closePath();c.fill();c.stroke();
+  var x=cx+6*u,y=cy-4*u,s=54*u;
+  [-1,1].forEach(function(d){var ex=x+d*s*.42;
+    c.beginPath();c.arc(ex,y,s*.26,0,Math.PI*2);c.fillStyle='#fff';c.fill();
+    c.lineWidth=s*.04;c.strokeStyle='#1B2030';c.stroke();
+    c.beginPath();c.arc(ex,y+s*.04,s*.12,0,Math.PI*2);c.fillStyle='#1B2030';c.fill();
+    c.beginPath();c.lineWidth=s*.09;c.lineCap='round';c.strokeStyle='#1B2030';
+    c.moveTo(ex-d*s*.3,y-s*.42);c.lineTo(ex+d*s*.12,y-s*.2);c.stroke();});
+  c.beginPath();c.lineWidth=s*.07;c.strokeStyle='#1B2030';
+  c.moveTo(x-s*.25,y+s*.5);c.quadraticCurveTo(x,y+s*.42,x+s*.25,y+s*.52);c.stroke();
 })();
 </script>
 </body>
