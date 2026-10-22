@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CNS13 · CNS15–16 Match Lab · HoyaDocs</title>
+<meta name="description" content="HoyaDocs CNS13 · CNS15–16 Match Lab: Motor Control: Reflexes, Tracts &amp; Cerebellum. Rapid Fire matching and Grid Lock charts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* HoyaDocs Match Lab engine v1.0
+   Layout: header + mode tabs; Home (mode cards, filters, mastery), Rapid Fire (one match per card), Grid Lock (chart + tile bank).
+   Colors are tokens on :root with a dark set. Every view stacks to one column on phones. */
+:root{
+  --bg:#f3f5f6; --surface:#ffffff; --sunk:#eef1f4; --ink:#18212b; --muted:#5a6570; --line:#dbe0e5; --chip:#eceff2;
+  --neuro:#2c55a0; --path:#a02c4f; --drt:#0f6b6b; --pharm:#85600f; --accent:#2c55a0; --accent-ink:#ffffff;
+  --ok:#1d7a3e; --ok-bg:#e3f4e8; --bad:#b3261e; --bad-bg:#fbe7e5; --once:#b7791f; --once-bg:#fdf1dc;
+  --hy-bg:#fff6cc; --hy-line:#c9a227; --hy-ink:#4a3a00;
+  --k1:#2c55a0; --k2:#6b46c1; --k3:#a02c4f; --k4:#b45309; --k5:#0f6b6b; --k6:#85600f; --k7:#1d7a3e; --k8:#0369a1;
+  --given:#f5f7f9; --lock:#e9ecef; --clue-bg:#e3ecfa; --clue-ink:#1d3f7a; --clue-line:#9db6e3;
+  --f-display:"Source Serif 4", Georgia, serif; --f-body:"Public Sans", Arial, sans-serif; --f-mono:"IBM Plex Mono", ui-monospace, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#11161c; --surface:#19212a; --sunk:#141b22; --ink:#e6eaee; --muted:#9aa6b2; --line:#2c3642; --chip:#232c36;
+  --neuro:#8fb1f0; --path:#f08aa5; --drt:#5cc2c0; --pharm:#e3bb63; --accent:#8fb1f0; --accent-ink:#0d1520;
+  --ok:#6fd08f; --ok-bg:#16301f; --bad:#f28b82; --bad-bg:#3a1b19; --once:#f0c070; --once-bg:#3a2e12;
+  --hy-bg:#3a3110; --hy-line:#b8952a; --hy-ink:#f5e6a8;
+  --k1:#8fb1f0; --k2:#b9a3f5; --k3:#f08aa5; --k4:#f5a65b; --k5:#5cc2c0; --k6:#e3bb63; --k7:#6fd08f; --k8:#7cc4f0;
+  --given:#1d262f; --lock:#161d24; --clue-bg:#1c2b44; --clue-ink:#c4d6f7; --clue-line:#3b5687; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#11161c; --surface:#19212a; --sunk:#141b22; --ink:#e6eaee; --muted:#9aa6b2; --line:#2c3642; --chip:#232c36;
+  --neuro:#8fb1f0; --path:#f08aa5; --drt:#5cc2c0; --pharm:#e3bb63; --accent:#8fb1f0; --accent-ink:#0d1520;
+  --ok:#6fd08f; --ok-bg:#16301f; --bad:#f28b82; --bad-bg:#3a1b19; --once:#f0c070; --once-bg:#3a2e12;
+  --hy-bg:#3a3110; --hy-line:#b8952a; --hy-ink:#f5e6a8;
+  --k1:#8fb1f0; --k2:#b9a3f5; --k3:#f08aa5; --k4:#f5a65b; --k5:#5cc2c0; --k6:#e3bb63; --k7:#6fd08f; --k8:#7cc4f0;
+  --given:#1d262f; --lock:#161d24; --clue-bg:#1c2b44; --clue-ink:#c4d6f7; --clue-line:#3b5687; color-scheme:dark }
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{font:15px/1.5 var(--f-body);margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:20px 16px 48px;display:grid;gap:16px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;line-height:1.2}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.meta{font:500 .74rem var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0}
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px}
+header.top h1{font-size:clamp(1.5rem,3.4vw,2rem)}
+header.top .lede{margin:4px 0 0;color:var(--muted);max-width:66ch}
+.back{font:600 .8rem var(--f-body);text-decoration:none;color:var(--muted)}
+.back:hover{color:var(--ink)}
+.hdr-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font:600 .86rem var(--f-body);background:var(--chip);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn[disabled]{opacity:.45;cursor:default}
+.btn.sm{padding:5px 10px;font-size:.8rem}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{font:700 .82rem var(--f-body);letter-spacing:.04em;text-transform:uppercase;background:none;border:0;border-bottom:3px solid transparent;padding:10px 12px 8px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.panel h2{font-size:1.15rem}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.mode-card{display:grid;gap:10px;align-content:start}
+.mode-card .k{font:500 .7rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mode-card h2{font-size:1.45rem}
+.mode-card p{margin:0;color:var(--muted)}
+.opts{display:grid;gap:8px}
+.optrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.optrow .lab{font:500 .7rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);min-width:76px}
+.seg{display:inline-flex;background:var(--chip);border-radius:9px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{font:600 .8rem var(--f-body);border:0;background:transparent;padding:5px 10px;border-radius:7px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.14)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 .78rem var(--f-body);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 10px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--c,var(--muted));flex:none}
+.chip[aria-pressed="false"]{opacity:.5;text-decoration:line-through;text-decoration-color:var(--muted)}
+.chip .n{font:500 .7rem var(--f-mono);color:var(--muted)}
+.statrow{display:flex;flex-wrap:wrap;gap:18px}
+.stat b{display:block;font:700 1.25rem var(--f-body);font-variant-numeric:tabular-nums}
+.stat span{font:500 .68rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.bar{height:6px;background:var(--chip);border-radius:3px;overflow:hidden}
+.bar > i{display:block;height:100%;background:var(--ok);border-radius:3px;transition:width .3s}
+.lecrow{display:grid;grid-template-columns:auto minmax(0,1fr) 120px auto;gap:4px 10px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:.88rem}
+.lecrow:first-of-type{border-top:0}
+.lecrow .pct{font:500 .75rem var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;min-width:52px;text-align:right}
+@media (max-width:560px){.lecrow{grid-template-columns:auto minmax(0,1fr) auto}.lecrow .bar{grid-column:1/-1;order:5}}
+.tag{font:600 .68rem var(--f-mono);letter-spacing:.05em;text-transform:uppercase;border-radius:5px;padding:2px 6px;color:#fff;background:var(--lc,var(--neuro));white-space:nowrap}
+:root[data-theme="dark"] .tag{color:#0d1520}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .tag{color:#0d1520} }
+.hy{font:700 .66rem var(--f-mono);letter-spacing:.06em;background:var(--hy-bg);color:var(--hy-ink);border:1px solid var(--hy-line);border-radius:5px;padding:1px 6px}
+.hybox{background:var(--hy-bg);border:1.5px solid var(--hy-line);color:var(--hy-ink);border-radius:10px;padding:10px 12px;font-size:.9rem}
+.hybox b{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:2px}
+details.how{font-size:.9rem}
+details.how summary{cursor:pointer;font-weight:700}
+details.how ul{margin:8px 0 0;padding-left:18px;color:var(--muted)}
+details.how li{margin:3px 0}
+
+/* Rapid fire */
+.rf-top{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.timer{height:5px;background:var(--chip);border-radius:3px;overflow:hidden}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.timer i.low{background:var(--bad)}
+.qcard{display:grid;gap:14px;max-width:820px;margin:0 auto;width:100%}
+.qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.kind{font:700 .72rem var(--f-body);letter-spacing:.04em;text-transform:uppercase;color:var(--kc);border:1.5px solid var(--kc);border-radius:6px;padding:2px 8px}
+.qset{font-size:.82rem;color:var(--muted)}
+.prompt-lab{font:500 .7rem var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.prompt{font:600 clamp(1.15rem,2.6vw,1.45rem)/1.35 var(--f-display);margin:2px 0 0}
+.ask{font-size:.88rem;color:var(--muted);margin:0}
+.options{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;cursor:pointer;font-size:.95rem;line-height:1.4}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt .key{font:500 .75rem var(--f-mono);color:var(--muted);border:1px solid var(--line);border-radius:6px;height:24px;display:grid;place-items:center}
+.opt.correct{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt[disabled]{cursor:default}
+.opt.dim{opacity:.55}
+.fb{border-radius:10px;padding:12px 14px;display:grid;gap:8px;font-size:.92rem}
+.fb.ok{background:var(--ok-bg);border:1px solid var(--ok)}
+.fb.bad{background:var(--bad-bg);border:1px solid var(--bad)}
+.fb h3{font:700 .95rem var(--f-body)}
+.fb p{margin:0}
+.fb .also{font-size:.86rem;color:var(--muted)}
+.fb .also b{color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.kbd{font:500 .72rem var(--f-mono);color:var(--muted)}
+/* sequence */
+.seq-done{display:grid;gap:6px;counter-reset:s;padding:0;margin:0;list-style:none}
+.seq-done li{counter-increment:s;display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;align-items:start;background:var(--ok-bg);border:1px solid var(--ok);border-radius:8px;padding:7px 10px;font-size:.92rem}
+.seq-done li::before{content:counter(s);font:700 .8rem var(--f-mono);color:var(--ok);text-align:center}
+.seq-done li.slot{background:transparent;border:1.5px dashed var(--line);color:var(--muted)}
+.seq-done li.slot::before{color:var(--muted)}
+.seq-pool{display:grid;gap:6px}
+.seq-pool .opt{grid-template-columns:minmax(0,1fr)}
+.shake{animation:shake .32s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}}
+/* end */
+.end{display:grid;gap:14px;max-width:820px;margin:0 auto;width:100%}
+.big{font:700 clamp(2rem,6vw,3rem)/1 var(--f-display)}
+.misslist{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.misslist li{border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:8px;padding:8px 12px;font-size:.9rem;background:var(--surface)}
+.misslist .a{font-weight:700}
+.misslist .b{color:var(--muted)}
+
+/* Grid list */
+.glist{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.gcard{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;display:grid;gap:6px;align-content:start}
+.gcard:hover{border-color:var(--accent)}
+.gcard h3{font-size:1.02rem}
+.gcard p{margin:0;font-size:.84rem;color:var(--muted)}
+.gcard .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font:500 .72rem var(--f-mono);color:var(--muted)}
+.stars{font-size:.85rem;letter-spacing:1px;color:var(--once)}
+.stars .off{color:var(--line)}
+/* Grid play */
+.gwrap{display:grid;gap:12px}
+.gtable-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table.gt{border-collapse:separate;border-spacing:0;width:100%;min-width:560px}
+.gt th{font:700 .74rem var(--f-body);letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:10px;border-bottom:1px solid var(--line);background:var(--sunk);vertical-align:bottom}
+.gt th small{display:block;font:500 .66rem var(--f-mono);letter-spacing:.03em;text-transform:none;color:var(--muted);margin-top:2px}
+.gt th.clue{background:var(--clue-bg);color:var(--clue-ink)}
+.gt th.clue small{color:var(--clue-ink)}
+.gt td{padding:5px;border-bottom:1px solid var(--line);vertical-align:top;min-width:120px}
+.gt tr:last-child td{border-bottom:0}
+.gt td + td,.gt th + th{border-left:1px solid var(--line)}
+.cell{width:100%;min-height:44px;border-radius:8px;padding:7px 9px;font-size:.88rem;line-height:1.3;text-align:left;display:flex;align-items:center;gap:6px}
+.cell.given{background:var(--given);font-weight:600}
+.cell.clue{background:var(--clue-bg);color:var(--clue-ink);border:1px solid var(--clue-line);font-weight:600}
+.cell.empty{border:1.5px dashed var(--line);background:transparent;cursor:pointer;color:var(--muted)}
+.cell.empty:hover,.cell.empty.drop{border-color:var(--accent);color:var(--ink)}
+.cell.sel{border:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);color:var(--ink)}
+.cell.locked{background:var(--lock);color:var(--muted);border:1px solid var(--line);cursor:not-allowed;font-size:.78rem}
+.cell.locked svg{width:13px;height:13px;flex:none}
+.cell.filled{background:var(--ok-bg);border:1px solid var(--ok);font-weight:600}
+.cell.pop{animation:pop .35s}
+@keyframes pop{0%{transform:scale(.94)}60%{transform:scale(1.03)}100%{transform:scale(1)}}
+.cell.err{animation:shake .32s;border-color:var(--bad)}
+.bank{background:var(--surface);border:1.5px solid var(--accent);border-radius:12px;padding:12px;display:grid;gap:8px;scroll-margin-bottom:16px}
+.bank .bh{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;font-size:.86rem}
+.bank .bh b{font-weight:700}
+.tiles{display:flex;flex-wrap:wrap;gap:6px;max-height:34vh;overflow:auto}
+.tile{font:600 .84rem var(--f-body);background:var(--sunk);border:1.5px solid var(--line);border-radius:8px;padding:7px 10px;cursor:grab;display:inline-flex;gap:6px;align-items:center;max-width:100%;text-align:left}
+.tile:hover:not([disabled]){border-color:var(--accent)}
+.tile .ct{font:500 .7rem var(--f-mono);color:var(--muted)}
+.tile.out{opacity:.45;text-decoration:line-through;cursor:default}
+.tile.dragging{opacity:.4}
+.toast{font-size:.86rem;font-weight:600}
+.toast:empty{display:none}
+@media (max-width:560px){.tabs .long{display:none}}
+.toast.bad{color:var(--bad)}
+.toast.ok{color:var(--ok)}
+.notes{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.notes li{border-left:3px solid var(--ok);background:var(--surface);border-radius:6px;padding:6px 10px;font-size:.88rem}
+.notes li b{font-weight:700}
+.gdone{display:grid;gap:12px}
+footer{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.empty-state{color:var(--muted);font-size:.9rem}
+#app{display:grid;gap:16px;min-width:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div>
+    <a class="back" href="index.html">&larr; Games</a>
+    <p class="meta" id="metaLine"></p>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </div>
+  <div class="hdr-actions">
+    <button class="btn" id="themeBtn" type="button">Theme: auto</button>
+    <button class="btn" id="resetBtn" type="button">Reset progress</button>
+  </div>
+</header>
+<nav class="tabs" role="tablist" aria-label="Mode">
+  <button role="tab" data-view="home" aria-selected="true">Home</button>
+  <button role="tab" data-view="rf" aria-selected="false"><span class="long">Mode 1 · </span>Rapid Fire</button>
+  <button role="tab" data-view="glist" aria-selected="false"><span class="long">Mode 2 · </span>Grid Lock</button>
+</nav>
+<main id="app" aria-live="polite"></main>
+<footer id="foot"></footer>
+</div>
+
+<script>
+const DATA = {"id": "cns13-16", "code": "CNS13 · CNS15–16", "title": "Motor Control: Reflexes, Tracts & Cerebellum", "blurb": "Spindles to spinocerebellar tracts, motor cortex to LMN, and the cerebellum's loops: match, sequence and localize every motor lesion.", "lectures": [{"k": "13", "name": "Proprioception & Spinal Reflexes", "disc": "neuro"}, {"k": "15", "name": "Motor Cortex & Descending Pathways", "disc": "neuro"}, {"k": "16", "name": "Cerebellum & Cerebellar Disorders", "disc": "neuro"}], "los": {"13.1": "Locate the corticospinal tract from internal capsule to spinal cord, know its decussation, and predict UMN vs LMN lesion symptoms", "13.2": "Describe the sensory receptors (muscle spindle, Golgi tendon organ) and fiber types (Ia, II, Ib) that detect proprioception", "13.3": "Trace conscious proprioception from body (DCML) and face (trigeminal) to sensory cortex and know where each decussates", "13.4": "Trace non-conscious proprioception (spinocerebellar tracts, mesencephalic V) to the cerebellum: crossing and peduncle used", "13.5": "Explain how the patellar (stretch), withdrawal (flexion) and crossed extensor reflexes work", "13.6": "Predict proprioceptive deficits from damage to the DCML or spinocerebellar projections (tabes dorsalis, Brown-Séquard)", "15.1": "Predict deficits from lesions of M1, SMA, lateral premotor and posterior parietal cortex; tell apraxia and neglect from paralysis", "15.2": "Trace the corticospinal tract through capsule, peduncle and pyramidal decussation; use capsular somatotopy and blood supply", "15.3": "Compare rubrospinal, vestibulospinal, reticulospinal and tectospinal tracts by origin, target muscles and function", "15.4": "Explain the flexed arm/extended leg of hemiplegia by rubrospinal (arm) and vestibulospinal (leg) dominance", "15.5": "Distinguish decorticate from decerebrate posturing and localize each above or below the red nucleus", "15.6": "Localize a motor presentation (cortex/capsule, brainstem, cord) using pyramidal vs extrapyramidal signs and sensory findings", "16.1": "Identify gross cerebellar features and match each deep nucleus to the cortical zone that projects to it", "16.2": "Name the neurons and layers of the cerebellar cortex", "16.3": "List cerebellar afferents from spinal cord, brainstem and cerebral cortex and the information each carries", "16.4": "List major cerebellar efferents and trace the spinocerebellar and cerebrocerebellar loops back to their targets", "16.5": "Explain why cerebellar signs are ipsilateral using the double crossing of cerebello-thalamo-cortical and corticospinal paths", "16.6": "Predict deficits from anterior, posterior and flocculonodular lobe lesions and localize a clinical case"}, "sets": [{"id": "s01", "lec": "13", "lo": "13.2", "kind": "structure-function", "title": "Proprioceptive element → what it does", "left": "Structure / fiber", "right": "Function", "pairs": [{"a": "Muscle spindle", "b": "Intrafusal receptor lying in parallel with extrafusal fibers; signals muscle stretch (length)", "why": "Spindles sit side by side with working fibers, so stretching the muscle stretches them. Parallel = length; series = tension.", "hy": true}, {"a": "Golgi tendon organ", "b": "Encapsulated receptor in series at the muscle–tendon junction; signals contraction force", "why": "In series with the fibers, the GTO is pulled whenever the muscle contracts, so it reports tension, not length.", "hy": true}, {"a": "Group Ia (annulospiral) ending", "b": "Primary ending coiled around the intrafusal center; synapses directly on α-motor neurons", "why": "Ia = annulospiral, wraps the spindle's equatorial region; fastest afferent and the afferent limb of the monosynaptic stretch reflex.", "hy": true}, {"a": "Group II (flower-spray) ending", "b": "Secondary ending on intrafusal fibers away from the center; reports sustained length", "why": "Flower-spray (II) endings sit beside the annulospiral ending and mainly report static stretch."}, {"a": "Group Ib afferent", "b": "Fiber carrying tendon-organ tension signals into the dorsal horn and spinocerebellar tracts", "why": "Ib = GTO. Trap: Ia and II both come from the spindle; only Ib comes from the tendon organ."}, {"a": "γ-motor neuron", "b": "Efferent to intrafusal fibers that re-tightens the spindle so it stays sensitive during contraction", "why": "γ-MNs innervate spindles. Co-activation with α-MNs keeps the spindle taut; loss of γ drive contributes to LMN hypotonia."}, {"a": "α-motor neuron", "b": "Ventral horn efferent to extrafusal fibers; the final common path that makes the muscle contract", "why": "α-MNs (LMNs) drive the force-producing extrafusal fibers; they are the efferent limb of every spinal reflex."}]}, {"id": "s02", "lec": "13", "lo": "13.5", "kind": "cause-effect", "title": "Reflex / mechanism → circuit and effect", "left": "Reflex or mechanism", "right": "Circuit → effect", "pairs": [{"a": "Stretch (myotatic) reflex", "b": "Ia afferent synapses directly on homonymous α-MN → the stretched muscle contracts", "why": "The only monosynaptic reflex: one synapse between Ia and the α-MN of the same muscle (knee jerk).", "hy": true}, {"a": "Reciprocal inhibition", "b": "Ia collateral excites an inhibitory interneuron → the antagonist muscle relaxes", "why": "During the knee jerk the quadriceps contracts while the hamstrings are inhibited via an Ia inhibitory interneuron (disynaptic)."}, {"a": "Flexion (withdrawal) reflex", "b": "Nociceptor → polysynaptic interneurons → ipsilateral flexors contract, extensors relax", "why": "Polysynaptic: several interneurons spread the response over multiple segments to pull the limb away from pain.", "hy": true}, {"a": "Crossed extensor reflex", "b": "Commissural interneurons cross the midline → contralateral extensors contract", "why": "Pairs with withdrawal: while one leg flexes away from the tack, the opposite leg extends to bear weight."}, {"a": "α–γ coactivation", "b": "γ-MNs fire with α-MNs → spindle stays taut and keeps signaling during contraction", "why": "Without γ drive the spindle would go slack when the muscle shortens and proprioceptive feedback would drop out."}, {"a": "Autogenic inhibition", "b": "GTO Ib afferent excites an inhibitory interneuron → the same muscle relaxes", "why": "Ib inhibitory reflex protects against excess tension; it underlies the sudden give of clasp-knife spasticity."}]}, {"id": "s03", "lec": "13", "lo": "13.5", "kind": "term-app", "title": "Reflex tested → spinal root level", "left": "Reflex", "right": "Root level", "pairs": [{"a": "Achilles (ankle jerk)", "b": "S1–S2", "why": "'S1, 2, buckle my shoe.' Absent ankle jerk + lateral foot numbness = S1 radiculopathy (L5–S1 disc).", "hy": true}, {"a": "Patellar (knee jerk)", "b": "L3–L4", "why": "'3, 4, kick the door.' Main root L4; the femoral nerve carries both limbs of the arc.", "hy": true}, {"a": "Biceps", "b": "C5–C6", "why": "'5, 6, pick up sticks.' Musculocutaneous nerve; C5 dominant."}, {"a": "Triceps", "b": "C7–C8", "why": "'7, 8, lay them straight.' Radial nerve; C7 dominant."}, {"a": "Cremasteric", "b": "L1–L2", "why": "Stroke the inner thigh → testis elevates; genitofemoral nerve. Lost in testicular torsion."}, {"a": "Anal wink", "b": "S3–S4", "why": "Perianal stroke → external sphincter contracts; tests the conus/sacral roots (cauda equina)."}]}, {"id": "s04", "lec": "16", "lo": "16.3", "kind": "term-def", "title": "Cerebellar afferent → information it carries", "left": "Afferent pathway", "right": "Information carried", "pairs": [{"a": "Dorsal spinocerebellar tract", "b": "Spindle and GTO data from individual muscles of the leg and lower body", "why": "Dorsal SCT relays fine, muscle-by-muscle position and tension from the lower body via Clarke's nucleus.", "hy": true}, {"a": "Cuneocerebellar tract", "b": "Spindle and GTO data from individual muscles of the arm and upper body", "why": "The upper-body equivalent of the dorsal SCT; needed because Clarke's nucleus does not exist above C8."}, {"a": "Ventral spinocerebellar tract", "b": "Whole-limb GTO and interneuron activity from muscle groups of the lower body", "why": "Ventral SCT reports activity of whole muscle groups and spinal circuits rather than single muscles."}, {"a": "Olivocerebellar tract", "b": "Flexor reflex afferent and error signals carried as climbing fibers to vermis/paravermis", "why": "The inferior olive is the ONLY source of climbing fibers; every other afferent arrives as mossy fibers."}, {"a": "Reticulocerebellar tract", "b": "Muscle tone plus posture and balance information directed to vermis/paravermis", "why": "Reticular formation input reports muscle tone and posture/balance; contrast vestibulocerebellar input, which reports head position."}, {"a": "Vestibulocerebellar tract", "b": "Head position and acceleration data used for posture and balance", "why": "Vestibular input goes mainly to the flocculonodular lobe (vestibulocerebellum)."}, {"a": "Pontocerebellar fibers", "b": "Cerebral cortex motor and cognitive plans relayed from the contralateral cortex", "why": "Cortex → pontine nuclei → cross → middle cerebellar peduncle. This is how the cerebellum learns what the cortex intends."}, {"a": "Mesencephalic nucleus of V", "b": "Non-conscious proprioception from jaw and facial muscles", "why": "Its pseudounipolar cells are 1st-order neurons located inside the CNS; they carry jaw spindle data (jaw jerk) to the cerebellum."}]}, {"id": "s05", "lec": "13", "lo": "13.6", "kind": "lesion-deficit", "title": "Lesion → proprioceptive/sensory deficit", "left": "Lesion", "right": "Expected deficit", "pairs": [{"a": "Right fasciculus gracilis at T10", "b": "Right leg: lost vibration, position sense and 2-point discrimination", "why": "Dorsal columns are uncrossed in the cord, so the deficit is ipsilateral at and below the lesion."}, {"a": "Tabes dorsalis", "b": "Bilateral loss of position sense, positive Romberg, abnormal gait, numb feet", "why": "Treponema pallidum destroys large myelinated DRG fibers/dorsal columns ~20 years after infection. Romberg = eyes-closed sway.", "hy": true}, {"a": "Left hemisection at L1 (Brown-Séquard)", "b": "Left leg UMN paralysis + touch loss; right leg pain/temp loss", "why": "DCML and CST are ipsilateral in the cord; the anterolateral system already crossed, so pain/temp loss is contralateral.", "hy": true}, {"a": "Left medial lemniscus in the medulla", "b": "Right body: lost vibration and conscious position sense", "why": "Above the internal arcuate decussation, DCML lesions produce CONTRALATERAL deficits."}, {"a": "Cerebellar peduncle/spinocerebellar areas", "b": "Wide, broad-based gait with reduced muscle tone; sensation intact", "why": "Pure spinocerebellar tract lesions are not reported, but damage to their cerebellar targets gives broad-based gait and hypotonia."}, {"a": "Anterior spinal artery infarct at L1", "b": "Bilateral paralysis and pain/temp loss below L1; vibration spared", "why": "ASA supplies the anterior 2/3 of the cord (CST, ventral horn, ALS) but not the dorsal columns.", "hy": true}, {"a": "Mesencephalic nucleus of V", "b": "Loss of non-conscious jaw proprioception and the jaw-jerk afferent limb", "why": "Mesencephalic V carries jaw spindle input; it is the afferent limb of the jaw-jerk (masseter) reflex."}]}, {"id": "s06", "lec": "15", "lo": "15.1", "kind": "lesion-deficit", "title": "Motor cortex lesion → deficit", "left": "Lesion site", "right": "Deficit", "pairs": [{"a": "Primary motor cortex (M1)", "b": "Contralateral weakness/paralysis in the body part mapped to that gyrus region", "why": "M1 projects directly to LMNs; lesion = true UMN paralysis. Medial M1 (leg) = ACA territory; lateral (face/arm) = MCA."}, {"a": "Supplementary motor area", "b": "Strength intact but can't sequence memorized complex tasks (tie shoes, brush teeth)", "why": "SMA is the internal planner/timer, especially for bimanual sequences done from memory (piano by heart, typing)."}, {"a": "Lateral premotor cortex", "b": "Can't adjust movement to external cues or imitate a demonstrated movement", "why": "Lateral premotor uses EXTERNAL cues (sheet music, red light). Trap: SMA = internally generated, premotor = externally cued.", "hy": true}, {"a": "Left posterior parietal cortex", "b": "Apraxia with misreaching: can't use vision + position sense to guide the hand to an object", "why": "PPC fuses proprioception and vision into egocentric/allocentric space (hand vs cup); damage gives apraxia with normal strength."}, {"a": "Right posterior parietal cortex", "b": "Left hemispatial neglect: ignores the left side of space and body", "why": "Right parietal attends to both hemifields, left only to the right, so right lesions cause left neglect.", "hy": true}, {"a": "Primary somatosensory cortex (S1)", "b": "Contralateral loss of discriminative touch and position sense", "why": "S1 also sends descending fibers to DCML nuclei and dorsal horn to tune sensory input during movement."}]}, {"id": "s07", "lec": "15", "lo": "15.6", "kind": "cause-effect", "title": "Motor neuron sign → mechanism", "left": "Clinical sign", "right": "Mechanism", "pairs": [{"a": "Spasticity (UMN)", "b": "Loss of descending control disinhibits LMNs; antigravity muscles dominate", "why": "Remaining brainstem tracts drive arm flexors and leg extensors once CST control is gone."}, {"a": "Hyperreflexia (UMN)", "b": "Spindle-triggered reflex arc fires without descending modulation, so LMNs overreact", "why": "The arc is intact, but nothing from above damps it; clonus is the extreme form."}, {"a": "Babinski sign (UMN)", "b": "CST no longer suppresses the primitive infant toe-extension reflex", "why": "Upgoing great toe = pyramidal damage in anyone past infancy; normal in infants before the CST myelinates.", "hy": true}, {"a": "Spinal shock (acute UMN)", "b": "Abrupt loss of descending input briefly silences LMNs → transient flaccidity", "why": "Acute UMN lesions start flaccid and areflexic, then become spastic and hyperreflexic over days–weeks."}, {"a": "Fasciculations (LMN)", "b": "Spontaneous depolarization of surviving motor units produces visible twitches", "why": "Fasciculations (and fibrillations on EMG) point to LMN disease, e.g., ALS ventral horn loss.", "hy": true}, {"a": "Atrophy (LMN)", "b": "Muscle that can no longer be fired by its nerve wastes away (use it or lose it)", "why": "Denervation atrophy is marked; UMN lesions cause at most mild disuse atrophy."}, {"a": "Hypotonia (LMN)", "b": "Loss of α- and γ-motor drive removes the baseline tension of the muscle", "why": "γ-MN loss means spindles can't maintain tone; the limb is limp (flaccid)."}, {"a": "Areflexia (LMN)", "b": "Efferent limb of the reflex arc is destroyed, so stretch produces no contraction", "why": "Reflex needs an intact LMN; ventral horn or nerve damage abolishes it."}]}, {"id": "s08", "lec": "15", "lo": "15.6", "kind": "term-def", "title": "Pyramidal vs extrapyramidal sign → description", "left": "Sign", "right": "Description", "pairs": [{"a": "Spasticity (clasp-knife)", "b": "Velocity-dependent ↑ tone that resists then suddenly gives way", "why": "Pyramidal sign. Faster stretch → more resistance; abrupt release reflects GTO-mediated inhibition.", "hy": true}, {"a": "Rigidity (lead-pipe)", "b": "Uniform ↑ tone through the whole range, independent of speed", "why": "Extrapyramidal (basal ganglia) sign; not velocity-dependent, unlike spasticity.", "hy": true}, {"a": "Cogwheel rigidity", "b": "Ratchety catches in tone as a joint is moved passively", "why": "Rigidity with superimposed tremor; classic for Parkinson disease."}, {"a": "Bradykinesia", "b": "Slowness and poverty of movement without true weakness", "why": "Extrapyramidal lesions do not cause true paralysis; they slow and reduce movement."}, {"a": "Resting tremor", "b": "Tremor at rest that lessens with purposeful movement", "why": "Basal ganglia (Parkinson) tremor: 'pill-rolling', present at rest."}, {"a": "Intention tremor", "b": "Tremor that grows as the limb approaches its target", "why": "Cerebellar sign; absent at rest. Contrast with the resting tremor of Parkinson.", "hy": true}, {"a": "Hemiplegic gait", "b": "Stiff leg swung outward in an arc with the arm held flexed", "why": "Circumduction of the extended leg + flexed arm = pyramidal (e.g., capsular stroke)."}, {"a": "Festinating gait", "b": "Stooped, shuffling steps that speed up as if chasing balance", "why": "Extrapyramidal (parkinsonian) gait; contrast with the wide-based ataxic cerebellar gait."}]}, {"id": "s09", "lec": "15", "lo": "15.4", "kind": "term-app", "title": "Posture or movement → tract driving it", "left": "Posture / movement", "right": "Tract", "pairs": [{"a": "Flexed arm after an internal capsule stroke", "b": "Rubrospinal tract", "why": "With CST lost, the intact red nucleus drives upper-limb flexors, so the arm flexes (hemiplegic posture).", "hy": true}, {"a": "Extended leg after an internal capsule stroke", "b": "Lateral vestibulospinal tract", "why": "No rubrospinal fibers reach the legs, so vestibulospinal extensor drive dominates the lower limb.", "hy": true}, {"a": "Keeping the head steady while walking", "b": "Medial vestibulospinal tract", "why": "Medial VST stabilizes the head and coordinates head movements with eye movements."}, {"a": "Hunching in depression; jumpiness when excited", "b": "Reticulospinal tract", "why": "Reticulospinal drives proximal tone and 'emotional' motor responses."}, {"a": "Turning head and eyes together toward a sudden flash", "b": "Tectospinal tract", "why": "From the superior colliculus; orients head and neck to visual stimuli."}, {"a": "Buttoning a shirt with the fingers", "b": "Lateral corticospinal tract", "why": "Lateral CST controls fine voluntary movement of distal limb muscles."}, {"a": "Voluntary cortical control of trunk muscles on both sides", "b": "Anterior corticospinal tract", "why": "The ~10% of CST fibers that don't cross at the pyramids form the anterior CST: bilateral axial/proximal muscles, not below about L2. Reticulospinal is involuntary."}]}, {"id": "s10", "lec": "15", "lo": "15.5", "kind": "term-def", "title": "GCS motor score → response", "left": "GCS motor score", "right": "Response", "pairs": [{"a": "6", "b": "Obeys commands", "why": "Best motor response; the patient follows a simple instruction.", "hy": true}, {"a": "5", "b": "Localizes to pain", "why": "Purposeful movement toward the painful stimulus (reaches toward it)."}, {"a": "4", "b": "Withdraws from pain", "why": "Normal flexion away from the stimulus but not targeted."}, {"a": "3", "b": "Abnormal flexion (decorticate)", "why": "Arms flexed, legs extended: lesion ABOVE the red nucleus.", "hy": true}, {"a": "2", "b": "Extension (decerebrate)", "why": "All limbs extended: lesion BELOW the red nucleus; worse prognosis than decorticate.", "hy": true}, {"a": "1", "b": "No motor response", "why": "No movement to any stimulus."}]}, {"id": "s11", "lec": "16", "lo": "16.2", "kind": "structure-function", "title": "Cerebellar cortex cell / fiber → feature", "left": "Cell or fiber", "right": "Layer · transmitter · role", "pairs": [{"a": "Granule cell", "b": "Granular layer · glutamate · the only excitatory neuron of the cortex", "why": "Granule cells receive mossy fibers and send parallel fibers up to Purkinje dendrites."}, {"a": "Purkinje cell", "b": "Purkinje layer · GABA · sole output of the cortex to deep nuclei", "why": "Everything the cerebellar cortex computes leaves as Purkinje inhibition of the deep nuclei.", "hy": true}, {"a": "Golgi cell", "b": "Granular layer · GABA · inhibits granule cells (feedback)", "why": "Golgi cells gate mossy fiber → granule cell transmission."}, {"a": "Basket cell", "b": "Molecular layer · GABA · wraps and inhibits Purkinje cell bodies", "why": "Basket cells form 'baskets' around Purkinje somata (lateral inhibition)."}, {"a": "Stellate cell", "b": "Molecular layer · GABA · inhibits Purkinje dendrites", "why": "Stellate cells sit superficially in the molecular layer on Purkinje dendrites."}, {"a": "Mossy fiber", "b": "Ends in granular layer · glutamate · input from all sources but the olive", "why": "Mossy fibers (spinal, pontine, vestibular, reticular) synapse on granule cells and send collaterals to deep nuclei."}, {"a": "Climbing fiber", "b": "Climbs to molecular layer · aspartate · one fiber per Purkinje cell", "why": "Climbing fibers come only from the inferior olive and wrap a single Purkinje cell (1:1).", "hy": true}]}, {"id": "s12", "lec": "16", "lo": "16.1", "kind": "structure-function", "title": "Cerebellar structure → function", "left": "Structure", "right": "Function", "pairs": [{"a": "Vermis", "b": "Midline zone controlling axial/trunk posture via the fastigial nucleus", "why": "Vermis → fastigial → vestibular nuclei/reticular formation (medial descending systems)."}, {"a": "Paravermis (intermediate zone)", "b": "Zone adjusting ongoing limb movement via the interposed nuclei", "why": "Paravermis → emboliform + globose (interposed) → red nucleus. Spinocerebellum together with vermis."}, {"a": "Lateral hemisphere", "b": "Zone planning and timing skilled movement via the dentate nucleus", "why": "Cerebrocerebellum: input from cortex via pons; output dentate → VL thalamus → motor cortex.", "hy": true}, {"a": "Flocculonodular lobe", "b": "Lobe for balance and eye movements, projecting to vestibular nuclei", "why": "Vestibulocerebellum: bypasses deep nuclei and projects directly to vestibular nuclei."}, {"a": "Inferior cerebellar peduncle", "b": "Entry route for dorsal SCT, cuneocerebellar and olivocerebellar input", "why": "ICP (restiform body) is mainly afferent from spinal cord and medulla."}, {"a": "Middle cerebellar peduncle", "b": "Entry route for pontocerebellar fibers from the opposite pons", "why": "MCP is the largest peduncle and is purely afferent (cortex → pons → MCP)."}, {"a": "Superior cerebellar peduncle", "b": "Main output route of deep nuclei; also entry of the ventral SCT", "why": "SCP carries dentate/interposed output that decussates in the midbrain to red nucleus and thalamus.", "hy": true}]}, {"id": "s13", "lec": "16", "lo": "16.6", "kind": "disease-finding", "title": "Cerebellar sign → bedside finding", "left": "Cerebellar sign", "right": "Bedside finding", "pairs": [{"a": "Dysmetria", "b": "Repeatedly overshoots or undershoots the nose on finger-to-nose", "why": "Errors in judging distance; anterior or posterior lobe sign, on the SAME side as the lesion.", "hy": true}, {"a": "Intention tremor", "b": "Oscillation that worsens as the finger nears the target", "why": "Absent at rest; contrast with the resting tremor of basal ganglia disease.", "hy": true}, {"a": "Dysdiadochokinesia", "b": "Slow, irregular rapid alternating hand pronation–supination", "why": "Inability to switch quickly between antagonist movements; anterior or posterior lobe sign, ipsilateral to the lesion."}, {"a": "Gait (truncal) ataxia", "b": "Wide-based, staggering gait; cannot walk heel-to-toe", "why": "Anterior lobe/vermis sign; classic in alcoholic cerebellar degeneration."}, {"a": "Cerebellar nystagmus", "b": "Jerky eye oscillation on lateral gaze, worse looking toward the lesion", "why": "Flocculonodular component. Gaze-evoked nystagmus is worst looking toward the lesion side (case: right lesion, worse on right gaze)."}, {"a": "Scanning (staccato) speech", "b": "Words broken into separate, unevenly timed syllables", "why": "Loss of timing of speech muscles; also described as slurred."}, {"a": "Cognitive affective syndrome", "b": "Poor verbal fluency, executive deficits and blunted affect", "why": "Posterior lobe lesions affect cerebellar loops with prefrontal and parietal cortex (e.g., naming only 6 animals in 60 s)."}, {"a": "Cerebellar hypotonia", "b": "Floppy limbs with pendular, poorly damped knee jerks", "why": "Loss of cerebellar tone maintenance; reflexes are not hyperactive but swing back and forth several times (pendular)."}]}, {"id": "s14", "lec": "16", "lo": "16.4", "kind": "structure-function", "title": "Cerebellar output / mode → role", "left": "Pathway or mode", "right": "Role", "pairs": [{"a": "Dentatorubrothalamic tract", "b": "Dentate → red nucleus and VL thalamus → motor cortex for planned movement", "why": "The cerebrocerebellar output limb; crosses in the SCP decussation in the midbrain."}, {"a": "Cerebellovestibular tract", "b": "Flocculonodular lobe → vestibular nuclei to control balance and eyes", "why": "Vestibulocerebellar output bypasses the deep nuclei and goes straight to the vestibular nuclei, which act as its functional equivalent."}, {"a": "Cerebello-olivary tract", "b": "Cerebellum → inferior olive, closing the climbing-fiber learning loop", "why": "Olive ↔ cerebellum loop supports error-based motor learning."}, {"a": "Fastigial nucleus output", "b": "Fastigial → vestibular nuclei and reticular formation for axial posture", "why": "Drives vestibulospinal and reticulospinal tracts (trunk, antigravity muscles)."}, {"a": "Interposed nucleus output", "b": "Emboliform/globose → red nucleus to adjust ongoing limb movement", "why": "Spinocerebellar limb loop: compares intended vs actual limb movement and corrects it via rubrospinal/CST."}, {"a": "Feedback control", "b": "Compares planned with executed movement and corrects what just happened", "why": "Feedback can only fix ongoing activity based on recent past; failure → overshoot, or perseverating in conversation.", "hy": true}, {"a": "Feedforward control", "b": "Uses past experience to predict outcomes and act before errors occur", "why": "Predicts your own and others' motion (walking a busy street), and why you can't tickle yourself."}]}, {"id": "s15", "lec": "13", "lo": "13.1", "kind": "term-def", "title": "Level → where the corticospinal tract runs", "left": "Level", "right": "CST location", "pairs": [{"a": "Cerebral cortex", "b": "Precentral gyrus (M1) upper motor neurons", "why": "UMN cell bodies sit in M1; homunculus: leg medial, arm and face lateral."}, {"a": "Internal capsule", "b": "Posterior limb, between thalamus and lentiform nucleus", "why": "Corticobulbar fibers lie at the genu; CST in the posterior limb. Small lacunes here give pure motor hemiparesis."}, {"a": "Midbrain", "b": "Middle portion of the cerebral peduncle (crus cerebri)", "why": "Weber syndrome: CST in crus + CN III → contralateral hemiparesis with ipsilateral oculomotor palsy.", "hy": true}, {"a": "Pons", "b": "Basilar pons, broken into bundles by pontine nuclei", "why": "Fibers scatter among pontine nuclei, so basilar pontine lesions can give partial hemiparesis."}, {"a": "Rostral medulla", "b": "Medullary pyramids on the ventral surface", "why": "The pyramids give the 'pyramidal tract' its name; medial medullary syndrome hits pyramid + CN XII."}, {"a": "Caudal medulla", "b": "Pyramidal decussation where ~90% of fibers cross", "why": "Lesions above the decussation → contralateral weakness; below it → ipsilateral.", "hy": true}, {"a": "Spinal cord", "b": "Lateral funiculus (lateral CST) on the side opposite the cortex", "why": "Lateral CST synapses on ipsilateral ventral horn LMNs; cord lesions give ipsilateral UMN signs.", "hy": true}]}, {"id": "s16", "lec": "15", "lo": "15.2", "kind": "structure-function", "title": "Internal capsule anatomy → content or supply", "left": "Structure", "right": "Content / supply", "pairs": [{"a": "Anterior limb", "b": "Frontopontine and thalamocortical fibers; supplied by ACA and MCA branches", "why": "Anterior limb lies between caudate head and lentiform nucleus."}, {"a": "Genu", "b": "Corticobulbar fibers to cranial nerve nuclei; ACA, MCA and direct ICA branches", "why": "Genu lesion → contralateral lower face weakness (upper face has bilateral cortical input)."}, {"a": "Posterior limb", "b": "Corticospinal fibers (arm anterior, leg posterior); MCA and anterior choroidal", "why": "A capsular lesion hits face, arm and leg together because the fibers are tightly packed."}, {"a": "Lenticulostriate arteries", "b": "Thin terminal MCA branches whose rupture causes capsular hemorrhage", "why": "Hypertension → Charcot-Bouchard microaneurysms → capsular bleed → contralateral hemiparesis.", "hy": true}, {"a": "Anterior choroidal artery", "b": "ICA branch also supplying the posterior limb of the capsule", "why": "Infarct → contralateral hemiparesis, often with hemisensory loss and contralateral homonymous hemianopia."}]}], "seqs": [{"id": "q01", "lec": "13", "lo": "13.5", "title": "Patellar stretch reflex arc", "prompt": "Put the knee-jerk reflex in order (first → last).", "steps": ["Reflex hammer taps the patellar tendon", "Quadriceps and its intrafusal spindles are stretched", "Ia annulospiral afferents fire", "Ia axon (cell body in DRG) enters the cord at L3–L4", "Ia afferent excites homonymous α-motor neuron (single synapse)", "Quadriceps contracts and the leg kicks"], "why": "Monosynaptic: one synapse between the Ia afferent and the α-MN. Simultaneously an Ia inhibitory interneuron relaxes the hamstrings. Hyperactive = UMN lesion; absent = LMN/root (L4) lesion.", "hy": true}, {"id": "q02", "lec": "13", "lo": "13.5", "title": "Withdrawal + crossed extensor reflex", "prompt": "You step on a tack with your right foot. Order the events (first → last).", "steps": ["Nociceptors in the right sole fire", "Afferents enter the right dorsal horn", "Interneurons spread the signal over several segments", "Right flexors contract and right extensors are inhibited (leg withdraws)", "Commissural interneurons cross → left extensors contract to bear weight"], "why": "Withdrawal is polysynaptic (interneurons over multiple segments). The crossed extensor response needs extra commissural interneurons, so the opposite limb extends to support the body.", "hy": false}, {"id": "q03", "lec": "15", "lo": "15.2", "title": "Corticospinal tract descent", "prompt": "Trace the lateral corticospinal tract from cortex to muscle.", "steps": ["UMN in primary motor cortex (precentral gyrus)", "Posterior limb of the internal capsule", "Middle of the cerebral peduncle (midbrain)", "Basilar pons", "Medullary pyramid", "Pyramidal decussation (~90% cross)", "Lateral CST in the contralateral lateral funiculus", "Synapse on ventral horn LMN → skeletal muscle"], "why": "Two-neuron relay (UMN → LMN). Lesion above the decussation = contralateral weakness; below = ipsilateral. The ~10% that don't cross form the anterior CST.", "hy": true}, {"id": "q04", "lec": "13", "lo": "13.3", "title": "Conscious proprioception from the leg (DCML)", "prompt": "Order the DCML relay for conscious position sense from the left foot.", "steps": ["Spindle/joint receptor in the left foot", "1st-order neuron (DRG) enters the left dorsal column", "Ascends ipsilaterally in fasciculus gracilis", "Synapses in nucleus gracilis (caudal medulla)", "Internal arcuate fibers decussate", "Ascends in the right medial lemniscus", "Synapses in right VPL of the thalamus", "3rd-order neuron to right primary somatosensory cortex"], "why": "Three-neuron relay that crosses in the medulla. Face equivalent: trigeminal ganglion → main sensory nucleus of V → crosses → VPM → S1.", "hy": true}, {"id": "q05", "lec": "13", "lo": "13.4", "title": "Dorsal spinocerebellar tract", "prompt": "Order the non-conscious proprioception route from a leg muscle to the cerebellum.", "steps": ["Muscle spindle / GTO in the leg fires", "1st-order DRG neuron enters the cord", "Ascends to the C8–L2 level if it enters below L2", "Synapses in Clarke's nucleus (C8–L2)", "2nd-order axon ascends ipsilaterally (uncrossed)", "Enters via the inferior cerebellar peduncle to the ipsilateral cerebellum"], "why": "Two-neuron, uncrossed relay. Above C8 there is no Clarke's nucleus, so arm afferents ascend in fasciculus cuneatus to the accessory cuneate nucleus (cuneocerebellar tract, also ICP).", "hy": true}, {"id": "q06", "lec": "16", "lo": "16.4", "title": "Cerebrocerebellar loop", "prompt": "Order the cerebrocerebellar loop from cortex back to cortex.", "steps": ["Cerebral cortex sends the motor plan", "Synapse in ipsilateral pontine nuclei", "Pontocerebellar fibers cross and enter the middle cerebellar peduncle", "Mossy fibers excite granule cells of the lateral hemisphere", "Purkinje cells inhibit the dentate nucleus", "Dentate output exits and crosses in the superior cerebellar peduncle", "Synapse in VL thalamus (and red nucleus)", "Thalamus projects back to motor cortex"], "why": "Input arrives via the MCP, output leaves via the SCP. Purkinje cells are the only cortical output and are inhibitory (GABA) onto the deep nuclei.", "hy": true}, {"id": "q07", "lec": "16", "lo": "16.5", "title": "Why cerebellar signs are ipsilateral", "prompt": "A right cerebellar hemisphere lesion causes right-arm dysmetria. Order the pathway.", "steps": ["Right cerebellar hemisphere Purkinje cells", "Right dentate nucleus", "Right SCP decussates in the midbrain (1st cross)", "Left VL thalamus", "Left primary motor cortex", "Left CST crosses at the pyramidal decussation (2nd cross)", "Right arm lower motor neurons"], "why": "Two crossings cancel, so the cerebellum controls the SAME side of the body. Right cerebellar lesion → right-sided limb ataxia.", "hy": true}], "grids": [{"id": "g01", "lec": "13", "lo": "13.4", "title": "Proprioceptive pathway chart", "blurb": "From the relay nucleus, deduce the pathway, body region, crossing point and destination.", "cols": [{"h": "Pathway", "dep": 2}, {"h": "Body region", "dep": 0}, {"h": "Relay nucleus"}, {"h": "Crossing", "dep": 0}, {"h": "Destination", "dep": 0}], "rows": [["DCML", "Body below the face", "Nucleus gracilis / cuneatus", "Internal arcuate fibers (medulla)", "VPL → S1 (conscious)"], ["Trigeminal main sensory path", "Face", "Main sensory nucleus of V", "Trigeminothalamic tract (pons)", "VPM → S1 (conscious)"], ["Mesencephalic trigeminal path", "Jaw and face muscles", "Mesencephalic nucleus of V", "None: 1st-order cell body lies in CNS", "Cerebellum (non-conscious)"], ["Dorsal spinocerebellar tract", "Lower body (individual muscles)", "Clarke's nucleus (C8–L2)", "Uncrossed", "Cerebellum via ICP"], ["Cuneocerebellar tract", "Upper body (above C8)", "Accessory cuneate nucleus", "Uncrossed", "Cerebellum via ICP"], ["Ventral spinocerebellar tract", "Lower body (muscle groups)", "Base of the dorsal horn", "Double: AWC, then back in SCP", "Cerebellum via SCP"]], "easyGiven": [0], "hardGiven": [2], "decoys": {"0": ["Spinothalamic tract", "Rostral spinocerebellar tract"], "1": ["Viscera", "Contralateral face"], "3": ["Anterior white commissure only", "Pyramidal decussation"], "4": ["VA → premotor cortex", "Cerebellum via MCP", "Superior colliculus"]}, "notes": ["Conscious proprioception: 3 neurons, crosses in the medulla, ends in S1 via VPL.", "Face conscious proprioception: trigeminal ganglion → main sensory nucleus → crosses → VPM → S1.", "Mesencephalic V holds 1st-order cell bodies inside the CNS; sends jaw proprioception to the cerebellum.", "Clarke's nucleus exists only C8–L2; leg afferents entering lower ascend to reach it. Uncrossed → ICP.", "Above C8 there is no Clarke's nucleus, so arm afferents relay in the accessory cuneate nucleus → ICP.", "Ventral SCT carries GTO data, crosses in the AWC, enters via SCP, then recrosses: 'double crossed'."], "hy": "All spinocerebellar input ends on the SAME side of the cerebellum (ventral SCT crosses twice). Only the ventral SCT uses the SCP; dorsal SCT and cuneocerebellar use the ICP."}, {"id": "g02", "lec": "15", "lo": "15.1", "title": "Motor cortex areas", "blurb": "From the lesion deficit, identify the cortical area, its specialty and a task that depends on it.", "cols": [{"h": "Area", "dep": 2}, {"h": "Specialty", "dep": 0}, {"h": "Lesion deficit"}, {"h": "Task that relies on it", "dep": 0}], "rows": [["Primary motor cortex (M1)", "Direct UMN output to LMNs", "Contralateral paralysis", "Any voluntary muscle contraction"], ["Supplementary motor area", "Internally cued sequence planning", "Can't do memorized complex sequences", "Playing piano from memory"], ["Lateral premotor cortex", "Externally cued movement", "Can't imitate or follow external cues", "Braking when the light turns red"], ["Left posterior parietal cortex", "Spatial map: vision + proprioception", "Apraxia", "Reaching accurately for a cup"], ["Right posterior parietal cortex", "Attention to both sides of space", "Left hemispatial neglect", "Noticing food on the left of the plate"], ["Primary somatosensory cortex", "Descending tuning of DCML/dorsal horn", "Contralateral loss of position sense", "Adjusting grip as load changes"]], "easyGiven": [0], "hardGiven": [2], "decoys": {"0": ["Frontal eye field", "Broca area"], "1": ["Saccade generation", "Motor speech planning"], "3": ["Recognizing a familiar face", "Understanding spoken words"]}, "notes": ["M1 projects straight to LMNs; lesion = true UMN paralysis on the opposite side.", "SMA plans and times internally generated, often bimanual sequences (typing, tying shoelaces).", "Lateral premotor uses external cues; lesions impair imitation and fluent manipulation of objects.", "Posterior parietal builds egocentric and allocentric space; damage causes apraxia without weakness.", "Right parietal lesions → neglect of the left side of space and body.", "S1 descending fibers regulate sensory relay according to limb position and force."], "hy": "Apraxia and neglect occur with NORMAL strength: weakness localizes to M1/CST, not to premotor or parietal cortex. Right parietal lesion → left hemineglect."}, {"id": "g03", "lec": "15", "lo": "15.3", "title": "Descending motor tracts", "blurb": "From the function, deduce the tract, where it starts and which muscles it drives.", "cols": [{"h": "Tract", "dep": 3}, {"h": "Origin", "dep": 0}, {"h": "Target muscles", "dep": 0}, {"h": "Function"}], "rows": [["Lateral corticospinal", "Motor cortex (crossed)", "Distal limb muscles", "Fine voluntary limb/finger movement"], ["Anterior corticospinal", "Motor cortex (uncrossed)", "Axial/proximal, bilateral", "Voluntary trunk control"], ["Rubrospinal", "Red nucleus (midbrain)", "Upper-limb flexors only", "Arm flexion; decorticate posture"], ["Lateral vestibulospinal", "Lateral vestibular nucleus", "Antigravity extensors", "Balance; decerebrate posture"], ["Medial vestibulospinal", "Medial vestibular nucleus", "Neck muscles", "Stabilize head with eye movement"], ["Reticulospinal", "Reticular formation", "Proximal flexors and extensors", "Muscle tone; emotional motor acts"], ["Tectospinal", "Superior colliculus", "Neck muscles", "Orient head toward visual stimuli"]], "easyGiven": [0], "hardGiven": [3], "decoys": {"0": ["Olivospinal", "Corticobulbar"], "1": ["Inferior colliculus", "Substantia nigra", "Dentate nucleus"], "2": ["Lower-limb flexors only", "Extraocular muscles"]}, "notes": ["~90% of CST fibers cross at the pyramids → lateral CST for distal, fine movement.", "~10% stay uncrossed → anterior CST to axial/proximal muscles bilaterally; ends around L2.", "Rubrospinal reaches the arms only; outweighed by CST in humans but shapes posture after CST loss.", "Lateral VST drives extensors for balance; unopposed below the red nucleus → decerebrate.", "Medial VST coordinates head with eye movements as the body moves.", "Reticulospinal sets proximal tone and primitive orienting/'emotional' motor behaviors.", "Tectospinal from the superior colliculus integrates eye and head orienting."], "hy": "Corticospinal + rubrospinal = flexor/fine distal control; vestibulospinal + reticulospinal = antigravity, posture, tone. The surviving brainstem tracts determine the posture after a cortical lesion."}, {"id": "g04", "lec": "15", "lo": "15.6", "title": "Localize the motor lesion (Hard)", "blurb": "Read the presentation, localize the lesion, then name the key finding and the mechanism.", "cols": [{"h": "Presentation"}, {"h": "Lesion site", "dep": 0}, {"h": "Key finding", "dep": 1}, {"h": "Mechanism", "dep": 1}], "rows": [["R face, arm, leg weak; R arm flexed", "L internal capsule (genu + post. limb)", "Spastic hemiparesis + Babinski", "Lenticulostriate (MCA) bleed or infarct"], ["L leg weak, numb to touch; R leg no pain", "Left cord hemisection", "Ipsi DCML/UMN, contra pain/temp", "ALS already crossed; DCML/CST not yet"], ["Fasciculations + Babinski, sensory OK", "Ventral horn + lateral CST", "Mixed UMN and LMN signs", "Motor neuron degeneration (ALS)"], ["+ Romberg, numb feet, untreated syphilis", "Dorsal columns bilaterally", "Lost vibration & position sense", "T. pallidum destroys large DRG fibers"], ["After TBI: arms flexed, legs extended", "Above the red nucleus", "GCS motor 3 (decorticate)", "Rubrospinal still drives arm flexors"], ["After TBI: all four limbs extended", "Below the red nucleus", "GCS motor 2 (decerebrate)", "Unopposed vestibulospinal extensors"], ["Limp wasted leg, no reflexes, no Babinski", "Lower motor neuron", "Flaccid paralysis + atrophy", "Lost α/γ drive; reflex arc broken"]], "easyGiven": [0], "hardGiven": [0], "decoys": {"1": ["Right cerebellar hemisphere", "Basal ganglia (substantia nigra)"], "2": ["Lead-pipe rigidity", "Intention tremor", "Dissociated suspended pain loss"], "3": ["Dopamine loss in nigrostriatal path", "Syrinx at the anterior white commissure"]}, "notes": ["Capsular lesion: contralateral face/arm/leg UMN weakness; arm flexed (rubrospinal), leg extended (vestibulospinal).", "Brown-Séquard (e.g., ladder fall): ipsilateral UMN + DCML loss below, contralateral pain/temp loss.", "ALS = Amyotrophic LATERAL sclerosis: UMN + LMN degeneration; it does not involve the anterolateral system.", "Tabes dorsalis: dorsal column degeneration → sensory ataxia, positive Romberg; motor strength preserved.", "Decorticate: lesion above the red nucleus spares rubrospinal flexion of the arms.", "Decerebrate: lesion below the red nucleus leaves vestibulospinal extension unopposed.", "LMN lesion: flaccid, areflexic, atrophic, fasciculating, with downgoing or absent toe response."], "hy": "Pair sensory findings with motor signs to localize: UMN + no sensory loss → ALS; UMN + ipsilateral DCML + contralateral pain/temp → hemisection; face + arm + leg together → internal capsule."}, {"id": "g05", "lec": "16", "lo": "16.1", "title": "Cerebellar zones and deep nuclei", "blurb": "From the deep nucleus, deduce the cortical zone, its functional division, output target and function.", "cols": [{"h": "Cortical zone", "dep": 2}, {"h": "Functional division", "dep": 0}, {"h": "Deep nucleus"}, {"h": "Output target", "dep": 2}, {"h": "Controls", "dep": 0}], "rows": [["Vermis", "Spinocerebellum", "Fastigial", "Vestibular nuclei + reticular form.", "Axial posture, trunk, gait"], ["Paravermis (intermediate)", "Spinocerebellum", "Interposed (emboliform + globose)", "Red nucleus", "Ongoing limb movement"], ["Lateral hemisphere", "Cerebrocerebellum", "Dentate", "VL thalamus → motor cortex", "Planning/timing; cognition"], ["Flocculonodular lobe", "Vestibulocerebellum", "None: bypasses the deep nuclei", "Vestibular nuclei directly → MLF, VST", "Balance and eye movements"]], "easyGiven": [2], "hardGiven": [2], "decoys": {"0": ["Cerebellar tonsil", "Primary fissure"], "1": ["Basal ganglia division", "Spinothalamic division"], "3": ["Substantia nigra", "VPL thalamus"], "4": ["Pain modulation", "Visceral reflexes"]}, "notes": ["Vermis → fastigial → medial descending systems (VST, reticulospinal) for trunk and gait.", "Paravermis → interposed → red nucleus/rubrospinal for corrections of moving limbs.", "Lateral hemisphere → dentate → VL thalamus → cortex; also cognitive (prefrontal/parietal) loops.", "Flocculonodular lobe projects straight to vestibular nuclei for balance and eye control."], "hy": "Mnemonic lateral → medial: Don't Eat Greasy Foods = Dentate, Emboliform, Globose, Fastigial. Midline = trunk/axial; lateral = limbs. Interposed = emboliform + globose."}, {"id": "g06", "lec": "16", "lo": "16.6", "title": "Localize the cerebellar lesion (Hard)", "blurb": "Use the exam clue to localize the lesion, name the sign, and pick the bedside test.", "cols": [{"h": "Clue"}, {"h": "Lesion region", "dep": 0}, {"h": "Named sign", "dep": 0}, {"h": "Bedside test", "dep": 2}], "rows": [["Chronic drinker, reeling wide-based gait", "Anterior lobe (vermis)", "Gait/truncal ataxia", "Tandem (heel-to-toe) walk"], ["Sways with eyes open; nystagmus", "Flocculonodular lobe", "Disequilibrium + nystagmus", "Lateral gaze and stance testing"], ["Right finger misses the nose repeatedly", "Right posterior lobe", "Dysmetria", "Finger-to-nose"], ["Left hand can't flip palm up/down fast", "Left posterior lobe", "Dysdiadochokinesia", "Rapid alternating movements"], ["Names 6 animals in 60 s; flat affect", "Posterior lobe (cognitive)", "Cognitive affective syndrome", "Verbal fluency test"], ["Tremor nears cup with L hand; L SCP plaque", "Left superior cerebellar peduncle", "Intention tremor", "Reach toward a target"]], "easyGiven": [0], "hardGiven": [0], "decoys": {"1": ["Right posterior parietal cortex", "Substantia nigra"], "2": ["Resting tremor", "Sensory ataxia (+ Romberg)"], "3": ["Dix-Hallpike maneuver", "Babinski response"]}, "notes": ["Anterior lobe/vermis damage (classically alcohol) gives gait ataxia with relatively spared arms.", "Flocculonodular lesions disturb balance even with eyes open and cause nystagmus.", "Posterior lobe hemisphere lesions cause IPSILATERAL dysmetria; right lesion → right arm.", "Dysdiadochokinesia is an anterior or posterior lobe sign on the side of the lesion.", "Posterior lobe connections with prefrontal/parietal cortex → cerebellar cognitive affective syndrome.", "Damage to dentate outflow (e.g., MS plaque in the SCP) gives ipsilateral intention tremor, worst near the target."], "hy": "Cerebellar lesions: no weakness, no numbness, reflexes not hyperactive (may be pendular). Limb signs are ipsilateral. Cerebellar ataxia persists with eyes open; sensory (DCML) ataxia worsens with eyes closed (Romberg)."}, {"id": "g07", "lec": "13", "lo": "13.1", "title": "UMN vs LMN lesion signs", "blurb": "For each exam feature, fill in the UMN finding, the LMN finding and the reason.", "cols": [{"h": "Feature"}, {"h": "UMN lesion", "dep": 0}, {"h": "LMN lesion", "dep": 0}, {"h": "Why", "dep": 0}], "rows": [["Muscle tone", "Spastic (clasp-knife)", "Flaccid (hypotonic)", "LMNs disinhibited vs no drive to muscle"], ["Deep tendon reflexes", "Hyperreflexia, clonus", "Hyporeflexia or areflexia", "Arc unchecked vs arc broken"], ["Plantar response", "Babinski (toes up)", "Flexor (toes down)", "CST normally suppresses toe extension"], ["Muscle bulk", "Little or mild disuse atrophy", "Marked atrophy", "Denervated muscle wastes"], ["Fasciculations", "Absent", "Present", "Surviving motor units fire spontaneously"], ["Side vs CST lesion", "Contralateral if above decussation", "Ipsilateral, same segment", "CST crosses at the pyramids"]], "easyGiven": [0], "hardGiven": [0], "decoys": {"1": ["Rigid (lead-pipe)", "Cogwheel catches"], "2": ["Hyperreflexia", "Toes up"], "3": ["Loss of dopamine", "Cerebellar double crossing"]}, "notes": ["UMN loss disinhibits LMNs (spastic); LMN loss removes all drive including γ (flaccid).", "UMN: spindle arc overreacts; LMN: efferent limb missing so no reflex.", "A healthy CST suppresses the primitive infant toe-extension reflex.", "LMN denervation causes marked atrophy; UMN causes at most disuse atrophy.", "Fasciculations are an LMN sign (e.g., ALS ventral horn loss).", "LMNs act on their own side; UMN lesions above the pyramids give contralateral signs."], "hy": "ALS = both columns at once (UMN + LMN signs) with normal sensation. Acute UMN lesions start flaccid (spinal shock) before becoming spastic."}]};
+const META = {"block": "Block 6 · CNS", "updated": "October 22, 2026", "rev": "1.0"};
+</script>
+<script>
+(function(){
+"use strict";
+/* ---------- helpers ---------- */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const DISC={neuro:"Neuro",path:"Path",drt:"Radiology",pharm:"Pharm"};
+const KIND={
+  "term-def":{l:"Term → Definition",c:"--k1"},
+  "term-app":{l:"Term → Application",c:"--k2"},
+  "disease-finding":{l:"Disease → Finding",c:"--k3"},
+  "cause-effect":{l:"Cause → Effect",c:"--k4"},
+  "lesion-deficit":{l:"Lesion → Deficit",c:"--k5"},
+  "drug-mech":{l:"Drug → Mechanism",c:"--k6"},
+  "structure-function":{l:"Structure → Function",c:"--k7"},
+  "image-finding":{l:"Image → Finding",c:"--k8"},
+  "sequence":{l:"Put in Order",c:"--k4"}
+};
+const LOCK='<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M5 7V5a3 3 0 0 1 6 0v2h.5A1.5 1.5 0 0 1 13 8.5v5A1.5 1.5 0 0 1 11.5 15h-7A1.5 1.5 0 0 1 3 13.5v-5A1.5 1.5 0 0 1 4.5 7H5zm1.5 0h3V5a1.5 1.5 0 0 0-3 0v2z"/></svg>';
+const lecOf=k=>DATA.lectures.find(l=>l.k===k)||{k,name:"",disc:"neuro"};
+const lecTag=k=>{const L=lecOf(k);return `<span class="tag" style="--lc:var(--${L.disc})" title="${esc(L.name)}">${esc(lecLabel(k))}</span>`;};
+const lecLabel=k=>(DATA.prefix||"CNS")+k;
+
+/* ---------- storage (per-viewer convenience only) ---------- */
+const SKEY="hoyadocs-matchlab-"+DATA.id;
+let S={items:{},grids:{},best:0,rounds:0};
+try{const raw=localStorage.getItem(SKEY);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+const save=()=>{try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}};
+const itemStat=k=>S.items[k]||(S.items[k]={n:0,ok:0,run:0,last:null});
+const mastered=k=>(S.items[k]&&S.items[k].run>=2);
+
+/* ---------- theme ---------- */
+let theme="auto";
+try{theme=localStorage.getItem("hoyadocs-theme")||"auto";}catch(e){}
+function applyTheme(){if(theme==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.setAttribute("data-theme",theme);$("#themeBtn").textContent="Theme: "+theme;}
+$("#themeBtn").onclick=()=>{theme=theme==="auto"?"light":theme==="light"?"dark":"auto";try{localStorage.setItem("hoyadocs-theme",theme);}catch(e){}applyTheme();};
+applyTheme();
+$("#resetBtn").onclick=()=>{if(!confirmReset())return;S={items:{},grids:{},best:0,rounds:0};save();go("home");};
+function confirmReset(){const b=$("#resetBtn");if(b.dataset.arm){delete b.dataset.arm;b.textContent="Reset progress";return true;}b.dataset.arm="1";b.textContent="Tap again to reset";setTimeout(()=>{if(b.dataset.arm){delete b.dataset.arm;b.textContent="Reset progress";}},3000);return false;}
+
+/* ---------- static header ---------- */
+document.title=`${DATA.code} Match Lab · HoyaDocs`;
+$("#metaLine").textContent=`HoyaDocs · ${META.block} · ${DATA.code} · Match Lab`;
+$("#title").textContent=DATA.title;
+$("#lede").textContent=DATA.blurb;
+$("#foot").innerHTML=`HoyaDocs · ${esc(DATA.code)} Match Lab · Updated ${esc(META.updated)} · Revision ${esc(META.rev)}. <span class="hy">HY</span> tags and yellow boxes mark high-yield points for the in-house exam and USMLE Step 1.`;
+
+/* ---------- item pool ---------- */
+const ITEMS=[];
+DATA.sets.forEach(s=>s.pairs.forEach((p,i)=>ITEMS.push({t:"pair",key:s.id+":"+i,set:s,p,i,lec:s.lec,kind:s.kind,lo:s.lo})));
+DATA.seqs.forEach(q=>ITEMS.push({t:"seq",key:q.id,q,lec:q.lec,kind:"sequence",lo:q.lo}));
+
+/* ---------- filters / settings ---------- */
+const F={lecs:new Set(DATA.lectures.map(l=>l.k)),kinds:new Set(Object.keys(KIND)),len:"20",timer:"off",dir:"mixed",focus:"all",diff:"easy"};
+const pool=()=>ITEMS.filter(it=>F.lecs.has(it.lec)&&F.kinds.has(it.kind)&&(F.focus==="all"||(F.focus==="new"?!mastered(it.key):(S.items[it.key]&&S.items[it.key].last===false))));
+
+/* ---------- router ---------- */
+let view="home";
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>go(b.dataset.view));
+function go(v,arg){
+  stopTimer();
+  view=v;
+  document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.view===(v==="rfplay"||v==="rfend"?"rf":v==="grid"?"glist":v))));
+  if(v==="home")renderHome();
+  else if(v==="rf")renderRFSetup();
+  else if(v==="rfplay")renderQ();
+  else if(v==="rfend")renderEnd();
+  else if(v==="glist")renderGList();
+  else if(v==="grid")startGrid(arg);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---------- shared bits ---------- */
+function segHTML(name,label,opts,cur){return `<div class="optrow"><span class="lab">${label}</span><div class="seg" role="group" aria-label="${label}">${opts.map(([v,t])=>`<button type="button" data-${name}="${v}" aria-pressed="${v===cur}">${t}</button>`).join("")}</div></div>`;}
+function bindSeg(root,name,cb){root.querySelectorAll(`[data-${name}]`).forEach(b=>b.onclick=()=>{F[name]=b.dataset[name];root.querySelectorAll(`[data-${name}]`).forEach(x=>x.setAttribute("aria-pressed",String(x===b)));cb&&cb();});}
+function lecChips(){return `<div class="optrow"><span class="lab">Lectures</span><div class="chips">${DATA.lectures.map(l=>`<button type="button" class="chip" data-lec="${l.k}" aria-pressed="${F.lecs.has(l.k)}" style="--c:var(--${l.disc})"><i></i>${esc(lecLabel(l.k))} · ${esc(l.name)}</button>`).join("")}</div></div>`;}
+function kindChips(){const present=[...new Set(ITEMS.map(i=>i.kind))];return `<div class="optrow"><span class="lab">Match types</span><div class="chips">${present.map(k=>`<button type="button" class="chip" data-kind="${k}" aria-pressed="${F.kinds.has(k)}" style="--c:var(${KIND[k].c})"><i></i>${KIND[k].l} <span class="n">${ITEMS.filter(i=>i.kind===k).length}</span></button>`).join("")}</div></div>`;}
+function bindChips(root,cb){
+  root.querySelectorAll("[data-lec]").forEach(b=>b.onclick=()=>{const k=b.dataset.lec;if(F.lecs.has(k)){if(F.lecs.size>1)F.lecs.delete(k);}else F.lecs.add(k);b.setAttribute("aria-pressed",String(F.lecs.has(k)));cb&&cb();});
+  root.querySelectorAll("[data-kind]").forEach(b=>b.onclick=()=>{const k=b.dataset.kind;if(F.kinds.has(k)){const vis=[...F.kinds].filter(x=>ITEMS.some(i=>i.kind===x));if(vis.length>1)F.kinds.delete(k);}else F.kinds.add(k);b.setAttribute("aria-pressed",String(F.kinds.has(k)));cb&&cb();});
+}
+function stars(n){return `<span class="stars" aria-label="${n} of 3 stars">${[1,2,3].map(i=>i<=n?"★":'<span class="off">★</span>').join("")}</span>`;}
+
+/* ---------- HOME ---------- */
+function renderHome(){
+  const total=ITEMS.length, m=ITEMS.filter(i=>mastered(i.key)).length;
+  const gs=DATA.grids.length, ge=DATA.grids.filter(g=>(S.grids[g.id]||{}).easy).length, gh=DATA.grids.filter(g=>(S.grids[g.id]||{}).hard).length;
+  const kindsUsed=[...new Set(ITEMS.map(i=>i.kind))];
+  $("#app").innerHTML=`
+  <div class="grid2">
+    <section class="panel mode-card">
+      <span class="k">Mode 1</span>
+      <h2>Rapid Fire</h2>
+      <p>One match at a time, four choices, streak bonus, optional shot clock. Missed items come back later in the round, and every wrong pick shows you what that option actually matches.</p>
+      <div class="statrow"><div class="stat"><b>${ITEMS.filter(i=>i.t==="pair").length}</b><span>Matches</span></div><div class="stat"><b>${DATA.seqs.length}</b><span>Order-the-steps</span></div><div class="stat"><b>${S.best||0}</b><span>Best streak</span></div></div>
+      <div><button class="btn primary" type="button" id="goRF">Play Rapid Fire &rarr;</button></div>
+    </section>
+    <section class="panel mode-card">
+      <span class="k">Mode 2</span>
+      <h2>Grid Lock</h2>
+      <p>Fill a whole chart from a tile bank, sudoku style. <b>Easy</b> gives you the anchor column and some cells. <b>Hard</b> gives only the clue column, and each locked cell opens only after the cell it depends on is solved.</p>
+      <div class="statrow"><div class="stat"><b>${gs}</b><span>Grids</span></div><div class="stat"><b>${ge}/${gs}</b><span>Solved easy</span></div><div class="stat"><b>${gh}/${gs}</b><span>Solved hard</span></div></div>
+      <div><button class="btn primary" type="button" id="goG">Play Grid Lock &rarr;</button></div>
+    </section>
+  </div>
+  <section class="panel">
+    <div class="statrow" style="justify-content:space-between;align-items:end">
+      <div><h2>Mastery</h2><p class="ask" style="margin-top:2px">An item is mastered when you get it right twice in a row.</p></div>
+      <div class="stat"><b>${m}/${total}</b><span>Items mastered</span></div>
+    </div>
+    <div style="margin-top:10px">
+    ${DATA.lectures.map(l=>{const its=ITEMS.filter(i=>i.lec===l.k);const mm=its.filter(i=>mastered(i.key)).length;const pct=its.length?Math.round(100*mm/its.length):0;return `<div class="lecrow">${lecTag(l.k)}<span>${esc(l.name)}</span><div class="bar"><i style="width:${pct}%"></i></div><span class="pct">${mm}/${its.length}</span></div>`;}).join("")}
+    </div>
+  </section>
+  <section class="panel">
+    <details class="how">
+      <summary>How to play</summary>
+      <ul>
+        <li><b>Match types in this set:</b> ${kindsUsed.map(k=>KIND[k].l).join(" · ")}.</li>
+        <li><b>Rapid Fire:</b> press 1–4 to answer and Enter for the next card. Order-the-steps cards: tap the steps first to last; a wrong tap shakes and costs points.</li>
+        <li><b>Mixed direction</b> sometimes flips a card, showing the definition or finding and asking for the term.</li>
+        <li><b>Grid Lock:</b> tap an empty cell, then tap a tile (or drag the tile onto the cell). Decoy tiles are crossed out once you try them. A wrong tile counts as a mistake; three stars means no mistakes and no hints.</li>
+        <li><b>Hard mode:</b> the blue clue column is all you get. A padlock means that cell unlocks once the column named under its header is solved for that row.</li>
+        <li>Progress is kept in this browser only.</li>
+      </ul>
+    </details>
+  </section>`;
+  $("#goRF").onclick=()=>go("rf");
+  $("#goG").onclick=()=>go("glist");
+}
+
+/* ---------- RAPID FIRE: setup ---------- */
+function renderRFSetup(){
+  $("#app").innerHTML=`
+  <section class="panel opts">
+    <h2>Rapid Fire setup</h2>
+    ${lecChips()}
+    ${kindChips()}
+    ${segHTML("len","Length",[["10","10"],["20","20"],["40","40"],["all","All"]],F.len)}
+    ${segHTML("timer","Shot clock",[["off","Off"],["20","20 s"],["10","10 s"]],F.timer)}
+    ${segHTML("dir","Direction",[["fwd","Forward"],["mixed","Mixed"]],F.dir)}
+    ${segHTML("focus","Focus",[["all","Everything"],["new","Not mastered"],["miss","Last missed"]],F.focus)}
+    <div class="navrow"><span class="ask" id="poolCt"></span><button class="btn primary" id="startRF" type="button">Start &rarr;</button></div>
+  </section>`;
+  const root=$("#app");
+  const upd=()=>{const n=pool().length;$("#poolCt").textContent=`${n} item${n===1?"":"s"} match these filters.`;$("#startRF").disabled=!n;};
+  bindChips(root,upd);["len","timer","dir","focus"].forEach(n=>bindSeg(root,n,upd));upd();
+  $("#startRF").onclick=startRF;
+}
+
+/* ---------- RAPID FIRE: play ---------- */
+let RF=null, timerId=null;
+function stopTimer(){if(timerId){cancelAnimationFrame(timerId);timerId=null;}}
+function startRF(){
+  let p=shuffle(pool());
+  // interleave so the same set doesn't come back to back
+  const out=[];while(p.length){let i=p.findIndex(x=>!out.length||sid(x)!==sid(out[out.length-1]));if(i<0)i=0;out.push(p.splice(i,1)[0]);}
+  const n=F.len==="all"?out.length:Math.min(out.length,+F.len);
+  RF={q:out.slice(0,n).map(it=>({it,retry:false})),i:0,score:0,streak:0,best:0,first:0,firstOk:0,misses:[],answered:false};
+  go("rfplay");
+}
+const sid=it=>it.t==="pair"?it.set.id:it.q.id;
+function topBar(){
+  const tot=RF.q.length;
+  return `<div class="rf-top">
+    <div class="statrow">
+      <div class="stat"><b>${Math.min(RF.i+1,tot)}/${tot}</b><span>Card</span></div>
+      <div class="stat"><b>${RF.score}</b><span>Score</span></div>
+      <div class="stat"><b>${RF.streak}</b><span>Streak</span></div>
+      <div class="stat"><b>${RF.first?Math.round(100*RF.firstOk/RF.first)+"%":"—"}</b><span>First-try accuracy</span></div>
+    </div>
+    <button class="btn sm" type="button" id="quitRF">End round</button>
+  </div>
+  <div class="bar"><i style="width:${100*RF.i/tot}%;background:var(--accent)"></i></div>`;
+}
+function renderQ(){
+  if(RF.i>=RF.q.length){go("rfend");return;}
+  const cur=RF.q[RF.i]; RF.answered=false;
+  if(cur.it.t==="seq")return renderSeq(cur);
+  const it=cur.it,s=it.set,p=it.p;
+  if(cur.rev===undefined)cur.rev=F.dir==="mixed"&&Math.random()<.3;
+  if(!cur.opts){
+    const others=shuffle(s.pairs.filter((_,j)=>j!==it.i)).slice(0,3);
+    cur.opts=shuffle([p,...others]);
+  }
+  const K=KIND[s.kind]||KIND["term-def"];
+  const promptLab=cur.rev?s.right:s.left, ansLab=cur.rev?s.left:s.right;
+  $("#app").innerHTML=`${topBar()}
+  <section class="qcard panel">
+    <div class="qhead"><span class="kind" style="--kc:var(${K.c})">${cur.rev?esc(K.l.split(" → ").reverse().join(" → ")):K.l}</span>${lecTag(it.lec)}<span class="qset">${esc(s.title)}</span>${cur.retry?'<span class="hy" style="background:var(--once-bg);border-color:var(--once);color:var(--ink)">Retry</span>':""}</div>
+    ${F.timer!=="off"?'<div class="timer" aria-hidden="true"><i id="tbar"></i></div>':""}
+    <div><div class="prompt-lab">${esc(promptLab)}</div><p class="prompt">${esc(cur.rev?p.b:p.a)}</p></div>
+    <p class="ask">Pick the matching ${esc(ansLab.toLowerCase())}.</p>
+    <div class="options" role="group" aria-label="Answer choices">
+      ${cur.opts.map((o,k)=>`<button type="button" class="opt" data-k="${k}"><span class="key">${k+1}</span><span>${esc(cur.rev?o.a:o.b)}</span></button>`).join("")}
+    </div>
+    <div id="fbSlot"></div>
+  </section>`;
+  $("#quitRF").onclick=()=>go("rfend");
+  document.querySelectorAll(".opt[data-k]").forEach(b=>b.onclick=()=>answer(+b.dataset.k));
+  if(F.timer!=="off")runTimer(+F.timer,()=>answer(-1));
+}
+function runTimer(sec,onEnd){
+  const t0=performance.now();
+  const tick=now=>{const f=Math.max(0,1-(now-t0)/(sec*1000));const bar=$("#tbar");if(bar){bar.style.width=(f*100)+"%";bar.classList.toggle("low",f<.3);}RF.tleft=f;if(f<=0){timerId=null;onEnd();return;}timerId=requestAnimationFrame(tick);};
+  timerId=requestAnimationFrame(tick);
+}
+function record(cur,ok){
+  const st=itemStat(cur.it.key);st.n++;if(ok){st.ok++;st.run++;}else st.run=0;st.last=ok;
+  if(!cur.retry){RF.first++;if(ok)RF.firstOk++;}
+  if(ok){RF.streak++;RF.best=Math.max(RF.best,RF.streak);S.best=Math.max(S.best||0,RF.best);}else{RF.streak=0;}
+  if(!ok){
+    if(!RF.misses.includes(cur.it))RF.misses.push(cur.it);
+    if(!cur.retry){const at=Math.min(RF.q.length,RF.i+3+Math.floor(Math.random()*3));RF.q.splice(at,0,{it:cur.it,retry:true});}
+  }
+  save();
+}
+function answer(k){
+  if(RF.answered)return;RF.answered=true;stopTimer();
+  const cur=RF.q[RF.i],it=cur.it,s=it.set,p=it.p;
+  const chosen=k>=0?cur.opts[k]:null, ok=chosen===p;
+  let pts=0;if(ok){pts=100+Math.min(50,RF.streak*10);if(F.timer!=="off")pts+=Math.round(50*(RF.tleft||0));}
+  RF.score+=pts;record(cur,ok);
+  document.querySelectorAll(".opt[data-k]").forEach(b=>{const o=cur.opts[+b.dataset.k];b.disabled=true;if(o===p)b.classList.add("correct");else if(o===chosen)b.classList.add("wrong");else b.classList.add("dim");});
+  const ansTxt=cur.rev?p.a:p.b;
+  let also="";
+  if(chosen&&!ok)also=`<p class="also">You picked <b>${esc(cur.rev?chosen.a:chosen.b)}</b>, which matches <b>${esc(cur.rev?chosen.b:chosen.a)}</b>.</p>`;
+  $("#fbSlot").innerHTML=`<div class="fb ${ok?"ok":"bad"}">
+    <h3>${ok?`Correct · +${pts}`:k<0?"Time's up":"Not quite"}</h3>
+    ${ok?"":`<p>Correct match: <b>${esc(ansTxt)}</b></p>`}
+    ${p.why?`<p>${esc(p.why)}</p>`:""}
+    ${also}
+    ${p.hy?`<div class="hybox"><b>High yield · Step 1</b>${esc(p.a)} → ${esc(p.b)}</div>`:""}
+    <div class="navrow"><span class="kbd">${ok?"":"This one comes back later in the round. "}Enter = next</span><button class="btn primary" id="nextQ" type="button">Next &rarr;</button></div>
+  </div>`;
+  $("#nextQ").onclick=next;$("#nextQ").focus({preventScroll:true});
+  $("#fbSlot").scrollIntoView({block:"nearest",behavior:"smooth"});
+}
+function next(){RF.i++;renderQ();}
+function renderSeq(cur){
+  const q=cur.it.q;
+  if(!cur.order){cur.order=shuffle(q.steps.map((_,i)=>i));if(cur.order.every((v,i)=>v===i)&&q.steps.length>1)cur.order.reverse();}
+  cur.placed=0;cur.err=0;
+  const draw=()=>{
+    $("#app").innerHTML=`${topBar()}
+    <section class="qcard panel">
+      <div class="qhead"><span class="kind" style="--kc:var(${KIND.sequence.c})">${KIND.sequence.l}</span>${lecTag(q.lec)}<span class="qset">${esc(q.title)}</span>${cur.retry?'<span class="hy" style="background:var(--once-bg);border-color:var(--once);color:var(--ink)">Retry</span>':""}</div>
+      ${F.timer!=="off"?'<div class="timer" aria-hidden="true"><i id="tbar"></i></div>':""}
+      <p class="prompt">${esc(q.prompt)}</p>
+      <ol class="seq-done">${q.steps.map((s,i)=>i<cur.placed?`<li>${esc(s)}</li>`:i===cur.placed?`<li class="slot">Tap step ${i+1}…</li>`:"").join("")}</ol>
+      <div class="seq-pool" role="group" aria-label="Steps to place">${cur.order.filter(i=>i>=cur.placed).map(i=>`<button type="button" class="opt" data-s="${i}"><span>${esc(q.steps[i])}</span></button>`).join("")}</div>
+      <div class="navrow"><span class="kbd">Mistakes: ${cur.err}</span><button class="btn sm" type="button" id="giveUp">Show order</button></div>
+      <div id="fbSlot"></div>
+    </section>`;
+    $("#quitRF").onclick=()=>go("rfend");
+    $("#giveUp").onclick=()=>{cur.err=Math.max(cur.err,3);cur.placed=q.steps.length;finishSeq(cur,true);};
+    document.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{
+      const i=+b.dataset.s;
+      if(i===cur.placed){cur.placed++;if(cur.placed>=q.steps.length){finishSeq(cur);}else draw();}
+      else{cur.err++;b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");$(".navrow .kbd").textContent="Mistakes: "+cur.err;}
+    });
+  };
+  draw();
+  if(F.timer!=="off")runTimer(+F.timer*2,()=>{cur.err=Math.max(cur.err,3);cur.placed=q.steps.length;finishSeq(cur,true);});
+}
+function finishSeq(cur,gaveUp){
+  if(RF.answered)return;RF.answered=true;stopTimer();
+  const q=cur.it.q, ok=!gaveUp&&cur.err===0;
+  const pts=gaveUp?0:Math.max(0,100-25*cur.err)+(ok?Math.min(50,RF.streak*10):0);
+  RF.score+=pts;record(cur,ok);
+  $("#app").querySelector(".seq-done").innerHTML=q.steps.map(s=>`<li>${esc(s)}</li>`).join("");
+  $("#app").querySelector(".seq-pool").innerHTML="";
+  $("#giveUp").remove();
+  $("#fbSlot").innerHTML=`<div class="fb ${ok?"ok":"bad"}">
+    <h3>${ok?`Perfect order · +${pts}`:gaveUp?"Here's the order":`Done with ${cur.err} mistake${cur.err===1?"":"s"} · +${pts}`}</h3>
+    ${q.why?`<p>${esc(q.why)}</p>`:""}
+    ${q.hy?`<div class="hybox"><b>High yield · Step 1</b>${esc(q.title)}: know this order cold.</div>`:""}
+    <div class="navrow"><span class="kbd">${ok?"":"This one comes back later in the round. "}Enter = next</span><button class="btn primary" id="nextQ" type="button">Next &rarr;</button></div>
+  </div>`;
+  $("#nextQ").onclick=next;$("#nextQ").focus({preventScroll:true});
+}
+document.addEventListener("keydown",e=>{
+  if(view!=="rfplay"||e.metaKey||e.ctrlKey||e.altKey)return;
+  if(/^[1-4]$/.test(e.key)&&!RF.answered){const b=$(`.opt[data-k="${+e.key-1}"]`);if(b){e.preventDefault();b.click();}}
+  else if(e.key==="Enter"&&RF.answered&&document.activeElement&&document.activeElement.id!=="quitRF"){const n=$("#nextQ");if(n&&document.activeElement!==n){e.preventDefault();n.click();}}
+});
+
+/* ---------- RAPID FIRE: end ---------- */
+function renderEnd(){
+  if(!RF){go("rf");return;}
+  S.rounds=(S.rounds||0)+1;save();
+  const acc=RF.first?Math.round(100*RF.firstOk/RF.first):0;
+  $("#app").innerHTML=`<section class="end panel">
+    <h2>Round complete</h2>
+    <div class="statrow">
+      <div class="stat"><b class="big">${acc}%</b><span>First-try accuracy</span></div>
+      <div class="stat"><b class="big">${RF.score}</b><span>Score</span></div>
+      <div class="stat"><b class="big">${RF.best}</b><span>Best streak</span></div>
+    </div>
+    ${RF.misses.length?`<h3>Review your misses</h3><ul class="misslist">${RF.misses.map(it=>it.t==="pair"?`<li>${lecTag(it.lec)} <span class="a">${esc(it.p.a)}</span> → <span class="b">${esc(it.p.b)}</span></li>`:`<li>${lecTag(it.lec)} <span class="a">${esc(it.q.title)}</span><br><span class="b">${it.q.steps.map(esc).join(" → ")}</span></li>`).join("")}</ul>`:`<p>No misses. Try a longer round, the shot clock, or Hard Grid Lock.</p>`}
+    <div class="navrow">
+      <button class="btn" type="button" id="home2">Home</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${RF.misses.length?'<button class="btn" type="button" id="drill">Drill these misses</button>':""}<button class="btn primary" type="button" id="again">New round &rarr;</button></div>
+    </div>
+  </section>`;
+  $("#home2").onclick=()=>go("home");
+  $("#again").onclick=startRF;
+  const d=$("#drill");if(d)d.onclick=()=>{RF={q:shuffle(RF.misses).map(it=>({it,retry:false})),i:0,score:0,streak:0,best:0,first:0,firstOk:0,misses:[],answered:false};go("rfplay");};
+}
+
+/* ---------- GRID LOCK: list ---------- */
+function renderGList(){
+  const gs=DATA.grids.filter(g=>F.lecs.has(g.lec));
+  $("#app").innerHTML=`<section class="panel opts">
+    <h2>Grid Lock</h2>
+    ${segHTML("diff","Difficulty",[["easy","Easy · anchors + some cells given"],["hard","Hard · clue column only, locked chain"]],F.diff)}
+    ${lecChips()}
+  </section>
+  <div class="glist">${gs.length?gs.map(g=>{const st=S.grids[g.id]||{};return `<button type="button" class="gcard" data-g="${g.id}">
+    <div class="row">${lecTag(g.lec)}<span>${g.rows.length} rows × ${g.cols.length} cols</span></div>
+    <h3>${esc(g.title)}</h3><p>${esc(g.blurb)}</p>
+    <div class="row"><span>Easy ${stars(st.easy||0)}</span><span>Hard ${stars(st.hard||0)}</span></div>
+  </button>`;}).join(""):'<p class="empty-state">No grids for the selected lectures.</p>'}</div>`;
+  const root=$("#app");
+  bindSeg(root,"diff");bindChips(root,renderGList);
+  root.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>go("grid",b.dataset.g));
+}
+
+/* ---------- GRID LOCK: play ---------- */
+let G=null;
+function startGrid(id){
+  const g=DATA.grids.find(x=>x.id===id); if(!g){go("glist");return;}
+  const hard=F.diff==="hard", given=new Set(hard?g.hardGiven:g.easyGiven);
+  const cells=g.rows.map(r=>r.map((v,c)=>({v,given:given.has(c),filled:false})));
+  if(!hard){ // reveal ~30% of the remaining cells, but leave at least 2 blanks per column
+    g.cols.forEach((_,c)=>{if(given.has(c))return;const idx=shuffle(g.rows.map((_,r)=>r));const k=Math.min(Math.floor(g.rows.length*.3+Math.random()*.6),g.rows.length-2);idx.slice(0,Math.max(0,k)).forEach(r=>cells[r][c].given=true);});
+  }
+  const tileOrder={};g.cols.forEach((_,c)=>{tileOrder[c]=shuffle([...new Set(g.rows.map(r=>r[c])),...((g.decoys||{})[c]||[])]);});
+  G={g,hard,cells,sel:null,mistakes:0,hints:0,t0:Date.now(),tried:{},tileOrder,doneRows:new Set(),done:false,msg:"",msgCls:""};
+  g.rows.forEach((_,r)=>{if(rowDone(r))G.doneRows.add(r);});
+  G.sel=nextOpen(-1);
+  drawGrid();
+}
+const isOk=(r,c)=>G.cells[r][c].given||G.cells[r][c].filled;
+const rowDone=r=>G.cells[r].every((_,c)=>isOk(r,c));
+function locked(r,c){if(!G.hard)return false;const d=G.g.cols[c].dep;if(d===undefined||d===null)return false;return !isOk(r,d);}
+function open(r,c){return !isOk(r,c)&&!locked(r,c);}
+function nextOpen(from){const R=G.g.rows.length,C=G.g.cols.length,N=R*C;for(let k=1;k<=N;k++){const x=(from+k)%N,r=Math.floor(x/C),c=x%C;if(from<0&&k===N+1)break;if(open(r,c))return [r,c];}return null;}
+function remaining(c){const m={};G.g.rows.forEach((row,r)=>{if(!isOk(r,c))m[row[c]]=(m[row[c]]||0)+1;});return m;}
+function rowName(r){const g=G.g;const k=(G.hard?g.hardGiven:g.easyGiven)[0];return g.rows[r][k];}
+function drawGrid(){
+  const g=G.g,C=g.cols.length;
+  const tot=g.rows.length*C, done=g.rows.reduce((a,_,r)=>a+g.cols.reduce((b,_,c)=>b+(isOk(r,c)?1:0),0),0);
+  const givenCols=new Set(G.hard?g.hardGiven:g.easyGiven);
+  const head=g.cols.map((col,c)=>{const clue=G.hard&&givenCols.has(c);const dep=col.dep;return `<th scope="col" class="${clue?"clue":""}">${esc(col.h)}${clue?"<small>Clue · given</small>":G.hard&&dep!=null?`<small>${LOCK.replace('aria-hidden','style="width:10px;height:10px;vertical-align:-1px" aria-hidden')} after ${esc(g.cols[dep].h)}</small>`:""}</th>`;}).join("");
+  const body=g.rows.map((row,r)=>`<tr>${row.map((v,c)=>{
+    const cl=G.cells[r][c];
+    if(cl.given){const clue=G.hard&&givenCols.has(c);return `<td><div class="cell ${clue?"clue":"given"}">${esc(v)}</div></td>`;}
+    if(cl.filled)return `<td><div class="cell filled${cl.pop?" pop":""}">${esc(v)}</div></td>`;
+    if(locked(r,c))return `<td><button type="button" class="cell locked" disabled title="Solve ${esc(g.cols[g.cols[c].dep].h)} for this row first">${LOCK}<span>${esc(g.cols[g.cols[c].dep].h)} first</span></button></td>`;
+    const sel=G.sel&&G.sel[0]===r&&G.sel[1]===c;
+    return `<td><button type="button" class="cell empty${sel?" sel":""}${cl.err?" err":""}" data-r="${r}" data-c="${c}" aria-label="${esc(g.cols[c].h)}, row ${r+1}, empty">${sel?"Pick a tile":"—"}</button></td>`;
+  }).join("")}</tr>`).join("");
+  g.rows.forEach((_,r)=>g.cols.forEach((_,c)=>{G.cells[r][c].pop=false;G.cells[r][c].err=false;}));
+  const elapsed=Math.round((Date.now()-G.t0)/1000);
+  let bank="";
+  if(!G.done){
+    if(G.sel){
+      const c=G.sel[1],rem=remaining(c),tried=G.tried[c]||new Set();
+      const tiles=G.tileOrder[c].filter(v=>rem[v]||(!g.rows.some(rr=>rr[c]===v))).map(v=>{const dec=!g.rows.some(rr=>rr[c]===v);const out=dec&&tried.has(v);return `<button type="button" class="tile${out?" out":""}" ${out?"disabled":""} draggable="${!out}" data-v="${esc(v)}">${esc(v)}${rem[v]>1?`<span class="ct">×${rem[v]}</span>`:""}</button>`;}).join("");
+      bank=`<div class="bank" id="bank"><div class="bh"><span>Tiles for <b>${esc(g.cols[c].h)}</b> · row ${G.sel[0]+1}${G.hard?"":` (${esc(rowName(G.sel[0]))})`}</span><span class="toast ${G.msgCls}" id="toast" role="status">${esc(G.msg)}</span></div><div class="tiles">${tiles}</div></div>`;
+    } else bank=`<div class="bank"><span class="toast ${G.msgCls}" role="status">${esc(G.msg)||"Tap an empty cell to see its tiles."}</span></div>`;
+  }
+  const notes=[...G.doneRows].sort((a,b)=>a-b).filter(r=>g.notes&&g.notes[r]).map(r=>`<li><b>${esc(g.rows[r][g.easyGiven[0]])}:</b> ${esc(g.notes[r])}</li>`).join("");
+  $("#app").innerHTML=`<section class="gwrap">
+    <div class="rf-top">
+      <div>${lecTag(g.lec)} <span class="qset">${G.hard?"Hard":"Easy"}</span><h2 style="margin-top:4px">${esc(g.title)}</h2><p class="ask">${esc(g.blurb)}</p></div>
+      <div class="statrow"><div class="stat"><b>${done}/${tot}</b><span>Cells</span></div><div class="stat"><b>${G.mistakes}</b><span>Mistakes</span></div><div class="stat"><b>${G.hints}</b><span>Hints</span></div><div class="stat"><b id="clock">${fmt(elapsed)}</b><span>Time</span></div></div>
+    </div>
+    <div class="navrow"><button class="btn sm" type="button" id="gBack">&larr; All grids</button><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" type="button" id="gHint" ${G.done?"disabled":""}>Hint (fill one cell)</button><button class="btn sm" type="button" id="gRestart">Restart</button><button class="btn sm" type="button" id="gSwap">Switch to ${G.hard?"Easy":"Hard"}</button></div></div>
+    <div class="gtable-wrap"><table class="gt"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>
+    ${G.done?doneHTML():bank}
+    ${notes&&!G.done?`<div><h3 style="font-size:1rem;margin-bottom:6px">Solved rows</h3><ul class="notes">${notes}</ul></div>`:""}
+  </section>`;
+  $("#gBack").onclick=()=>go("glist");
+  $("#gRestart").onclick=()=>startGrid(g.id);
+  $("#gSwap").onclick=()=>{F.diff=G.hard?"easy":"hard";startGrid(g.id);};
+  $("#gHint").onclick=hint;
+  document.querySelectorAll(".cell.empty").forEach(b=>{
+    b.onclick=()=>{G.sel=[+b.dataset.r,+b.dataset.c];G.msg="";drawGrid();const t=$(".tile:not([disabled])");if(t)t.focus({preventScroll:true});const bk=$("#bank");if(bk)bk.scrollIntoView({block:"nearest",behavior:"smooth"});};
+    b.ondragover=e=>{e.preventDefault();b.classList.add("drop");};
+    b.ondragleave=()=>b.classList.remove("drop");
+    b.ondrop=e=>{e.preventDefault();const v=e.dataTransfer.getData("text/plain");place(+b.dataset.r,+b.dataset.c,v);};
+  });
+  document.querySelectorAll(".tile[data-v]").forEach(t=>{
+    t.onclick=()=>{if(G.sel)place(G.sel[0],G.sel[1],t.dataset.v);};
+    t.ondragstart=e=>{e.dataTransfer.setData("text/plain",t.dataset.v);t.classList.add("dragging");};
+    t.ondragend=()=>t.classList.remove("dragging");
+  });
+  const d=$("#gDone");if(d)d.onclick=()=>go("glist");
+  const h=$("#gHard");if(h)h.onclick=()=>{F.diff="hard";startGrid(g.id);};
+  const nx=$("#gNext");if(nx)nx.onclick=()=>{const L=DATA.grids;const i=L.indexOf(g);go("grid",L[(i+1)%L.length].id);};
+  tickClock();
+}
+const fmt=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+let clockT=null;
+function tickClock(){clearTimeout(clockT);if(view!=="grid"||!G||G.done)return;clockT=setTimeout(()=>{const el=$("#clock");if(el)el.textContent=fmt(Math.round((Date.now()-G.t0)/1000));tickClock();},1000);}
+function place(r,c,v){
+  if(G.done||!open(r,c))return;
+  const g=G.g;
+  if(g.rows[r][c]===v){
+    G.cells[r][c].filled=true;G.cells[r][c].pop=true;
+    G.msg="Correct.";G.msgCls="ok";
+    if(!G.doneRows.has(r)&&rowDone(r))G.doneRows.add(r);
+    const C=g.cols.length;G.sel=nextOpen(r*C+c);
+    if(!G.sel&&g.rows.every((_,rr)=>rowDone(rr)))finishGrid();
+  } else {
+    G.mistakes++;G.cells[r][c].err=true;G.msgCls="bad";
+    const inCol=g.rows.some(rr=>rr[c]===v);
+    if(inCol){G.msg=`“${v}” belongs in this column, but not this row.`;}
+    else{(G.tried[c]=G.tried[c]||new Set()).add(v);G.msg=`“${v}” is a decoy. It isn't in this chart.`;}
+    G.sel=[r,c];
+  }
+  drawGrid();
+}
+function hint(){
+  if(G.done)return;let t=G.sel&&open(...G.sel)?G.sel:nextOpen(-1);if(!t)return;
+  G.hints++;G.cells[t[0]][t[1]].filled=true;G.cells[t[0]][t[1]].pop=true;
+  if(rowDone(t[0]))G.doneRows.add(t[0]);
+  G.msg=`Hint: filled “${G.g.rows[t[0]][t[1]]}”.`;G.msgCls="";
+  const C=G.g.cols.length;G.sel=nextOpen(t[0]*C+t[1]);
+  if(!G.sel&&G.g.rows.every((_,rr)=>rowDone(rr)))finishGrid();
+  drawGrid();
+}
+function finishGrid(){
+  G.done=true;G.secs=Math.round((Date.now()-G.t0)/1000);
+  const pen=G.mistakes+2*G.hints;G.stars=pen===0?3:pen<=2?2:1;
+  const st=S.grids[G.g.id]||(S.grids[G.g.id]={});const k=G.hard?"hard":"easy";st[k]=Math.max(st[k]||0,G.stars);save();
+}
+function doneHTML(){
+  const g=G.g;
+  return `<section class="panel gdone">
+    <div class="statrow" style="align-items:center"><h2>Grid solved</h2>${stars(G.stars)}<span class="ask">${fmt(G.secs)} · ${G.mistakes} mistake${G.mistakes===1?"":"s"} · ${G.hints} hint${G.hints===1?"":"s"}</span></div>
+    ${g.hy?`<div class="hybox"><b>High yield · Step 1</b>${esc(g.hy)}</div>`:""}
+    <ul class="notes">${g.rows.map((row,r)=>g.notes&&g.notes[r]?`<li><b>${esc(row[g.easyGiven[0]])}:</b> ${esc(g.notes[r])}</li>`:"").join("")}</ul>
+    <div class="navrow"><button class="btn" type="button" id="gDone">All grids</button><div style="display:flex;gap:8px;flex-wrap:wrap">${G.hard?"":'<button class="btn" type="button" id="gHard">Try it on Hard</button>'}<button class="btn primary" type="button" id="gNext">Next grid &rarr;</button></div></div>
+  </section>`;
+}
+
+go("home");
+})();
+</script>
+</body>
+</html>
