@@ -59,7 +59,7 @@ html{scroll-behavior:smooth}
 
 /* hero */
 .hero{margin-top:22px;background:var(--navy);color:var(--navy-ink);border-radius:14px;position:relative;
-  display:grid;grid-template-columns:1fr auto minmax(250px,320px);align-items:center;gap:clamp(18px,3vw,36px);padding:clamp(18px,2.6vw,28px) clamp(20px,3.5vw,40px)}
+  display:grid;grid-template-columns:1fr minmax(250px,320px);align-items:center;gap:clamp(18px,3vw,36px);padding:clamp(18px,2.6vw,28px) clamp(20px,3.5vw,40px)}
 .hero::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
   background:
     repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), rgba(255,255,255,.045) calc(10% - 1px) 10%),
@@ -245,9 +245,12 @@ html{scroll-behavior:smooth}
 .nav span.soon em,.menu .soon em{font-style:normal;font-family:var(--cond);font-weight:800;font-size:10.5px;letter-spacing:.14em;border:1.5px solid var(--line);border-radius:999px;padding:0 6px;line-height:1.5}
 
 .menu .mnone{padding:8px 10px 10px;font-size:14.5px;color:var(--muted)}
+.menu .mnote{margin:6px 4px 0;padding:8px 10px;border-radius:7px;background:var(--sunk);font-size:13.5px;line-height:1.4;color:var(--muted)}
+.menu .mnote a{display:inline;padding:0;color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.menu .mnote a:hover{background:none}
 .fmenu{max-height:min(62vh,460px);overflow-y:auto}
 .ctas{grid-template-columns:1fr 1fr}
-.hero{grid-template-columns:1fr auto minmax(300px,420px)}
+.hero{grid-template-columns:1fr minmax(300px,420px)}
 @media (max-width:760px){.hero{grid-template-columns:1fr}}
 
 /* ---- featured game (added Oct 21, 2026) ---- */
@@ -307,83 +310,72 @@ html{scroll-behavior:smooth}
       <div class="eyebrow">Block 6 &middot; Central Nervous System</div>
       <h1>Games</h1>
     </div>
-    <div class="pickcue" aria-hidden="true">
-      <span>Select <br>a Game</span>
-      <svg viewBox="0 0 48 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h42M34 3l10 9-10 9"/></svg>
-    </div>
     <nav class="ctas" aria-label="Choose a game by discipline">
       <details class="dd" style="--c:var(--neu)">
         <summary class="btn sec"><i style="background:var(--neu)"></i>Neuroscience<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
         <div class="menu">
-          <div class="mh">Neuroscience &middot; 14 games &middot; 33 lectures</div>
+          <div class="mh">Neuroscience &middot; 5 multi-lecture games &middot; 33 lectures</div>
           <a href="HoyaDocs_CNS_Week1_Neuraxis_Siege_Boss_Battle.html"><span class="mt"><strong>Neuraxis Siege</strong><small>Boss Battle &middot; Week 1 campaign: 45 concepts from CNS01&ndash;08 and CNS12&ndash;16, each fought twice</small></span><span class="lec">Week 1</span></a>
-          <a href="CNS01_Builder.html"><span class="mt"><strong>CNS01 Builder</strong><small>Structure Builder &middot; Cells of the CNS: Glia and Neurons</small></span><span class="lec">CNS01</span></a>
-          <a href="CNS02_Builder.html"><span class="mt"><strong>CNS02 Builder</strong><small>Structure Builder &middot; Neuronal Communication I: Synapses and Neurotransmitters</small></span><span class="lec">CNS02</span></a>
-          <a href="CNS03_Builder.html"><span class="mt"><strong>CNS03 Builder</strong><small>Structure Builder &middot; Neuronal Communication II: Neurotransmitters &amp; Neuromodulators</small></span><span class="lec">CNS03</span></a>
-          <a href="CNS04_Builder.html"><span class="mt"><strong>CNS04 Builder</strong><small>Structure Builder &middot; Spinal Cord &amp; Brainstem Anatomy</small></span><span class="lec">CNS04</span></a>
-          <a href="CNS05_Builder.html"><span class="mt"><strong>CNS05 Builder</strong><small>Structure Builder &middot; Somatic Sensations &amp; Ascending Pathways</small></span><span class="lec">CNS05</span></a>
-          <a href="CNS12_Builder.html"><span class="mt"><strong>CNS12 Builder</strong><small>Structure Builder &middot; Pain Pathways</small></span><span class="lec">CNS12</span></a>
-          <a href="CNS13_Builder.html"><span class="mt"><strong>CNS13 Builder</strong><small>Structure Builder &middot; Proprioception and Spinal Reflexes</small></span><span class="lec">CNS13</span></a>
-          <a href="CNS15_Builder.html"><span class="mt"><strong>CNS15 Builder</strong><small>Structure Builder &middot; Motor Cortex and Descending Pathways</small></span><span class="lec">CNS15</span></a>
-          <a href="CNS16_Builder.html"><span class="mt"><strong>CNS16 Builder</strong><small>Structure Builder &middot; Cerebellum &amp; Cerebellar Disorders</small></span><span class="lec">CNS16</span></a>
           <a href="HoyaDocs_CNS01-03_Match_Lab.html"><span class="mt"><strong>CNS01&ndash;03 Match Lab</strong><small>Match Lab &middot; Neurons, glia, synapses, transmitters &amp; receptors</small></span><span class="lec">CNS01&ndash;03</span></a>
           <a href="HoyaDocs_CNS04-05_Match_Lab.html"><span class="mt"><strong>CNS04&ndash;05 Match Lab</strong><small>Match Lab &middot; Cord levels, brainstem, DCML, face touch &amp; taste</small></span><span class="lec">CNS04&ndash;05</span></a>
           <a href="HoyaDocs_CNS12_CNS14_Match_Lab.html"><span class="mt"><strong>CNS12 &middot; 14 Match Lab</strong><small>Match Lab &middot; Pain pathways, modulation, opioid effects &amp; drugs</small></span><span class="lec">CNS12 &middot; 14</span></a>
           <a href="HoyaDocs_CNS13_CNS15-16_Match_Lab.html"><span class="mt"><strong>CNS13 &middot; 15&ndash;16 Match Lab</strong><small>Match Lab &middot; Reflexes, proprioception, motor tracts &amp; cerebellum</small></span><span class="lec">CNS13 &middot; 15&ndash;16</span></a>
+          <div class="mnote">Looking for a single-lecture Builder? Use the <a href="#games" class="tosearch">search below</a> to find it by lecture.</div>
           <a class="all showall" href="#games" data-d="neu">Show all Neuroscience games below &darr;</a>
         </div>
       </details>
       <details class="dd" style="--c:var(--pat)">
         <summary class="btn sec"><i style="background:var(--pat)"></i>Pathology<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
         <div class="menu">
-          <div class="mh">Pathology &middot; 5 games &middot; 8 lectures</div>
+          <div class="mh">Pathology &middot; 2 multi-lecture games &middot; 8 lectures</div>
           <a href="HoyaDocs_CNS_Week1_Neuraxis_Siege_Boss_Battle.html"><span class="mt"><strong>Neuraxis Siege</strong><small>Boss Battle &middot; Week 1 campaign: 45 concepts from CNS01&ndash;08 and CNS12&ndash;16, each fought twice</small></span><span class="lec">Week 1</span></a>
-          <a href="CNS07_Builder.html"><span class="mt"><strong>CNS07 Builder</strong><small>Structure Builder &middot; Perinatal / Malformations</small></span><span class="lec">CNS07</span></a>
-          <a href="CNS08_Builder.html"><span class="mt"><strong>CNS08 Builder</strong><small>Structure Builder &middot; Edema / CNS Trauma</small></span><span class="lec">CNS08</span></a>
-          <a href="CNS11_Builder.html"><span class="mt"><strong>CNS11 Builder</strong><small>Structure Builder &middot; Cerebrovascular</small></span><span class="lec">CNS11</span></a>
           <a href="HoyaDocs_CNS06-08_Match_Lab.html"><span class="mt"><strong>CNS06&ndash;08 Match Lab</strong><small>Match Lab &middot; CT/MRI, malformations, perinatal injury, edema, hemorrhage &amp; herniation</small></span><span class="lec">CNS06&ndash;08</span></a>
+          <div class="mnote">Looking for a single-lecture Builder? Use the <a href="#games" class="tosearch">search below</a> to find it by lecture.</div>
           <a class="all showall" href="#games" data-d="pat">Show all Pathology games below &darr;</a>
         </div>
       </details>
       <details class="dd" style="--c:var(--pha)">
         <summary class="btn sec"><i style="background:var(--pha)"></i>Pharmacology<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
         <div class="menu">
-          <div class="mh">Pharmacology &middot; 2 games &middot; 19 lectures</div>
-          <a href="CNS14_Builder.html"><span class="mt"><strong>CNS14 Builder</strong><small>Structure Builder &middot; Opioid Drugs</small></span><span class="lec">CNS14</span></a>
+          <div class="mh">Pharmacology &middot; 1 multi-lecture game &middot; 19 lectures</div>
           <a href="HoyaDocs_CNS12_CNS14_Match_Lab.html"><span class="mt"><strong>CNS12 &middot; 14 Match Lab</strong><small>Match Lab &middot; Pain pathways, modulation, opioid effects &amp; drugs</small></span><span class="lec">CNS12 &middot; 14</span></a>
+          <div class="mnote">Looking for a single-lecture Builder? Use the <a href="#games" class="tosearch">search below</a> to find it by lecture.</div>
           <a class="all showall" href="#games" data-d="pha">Show all Pharmacology games below &darr;</a>
         </div>
       </details>
       <details class="dd" style="--c:var(--psy)">
         <summary class="btn sec"><i style="background:var(--psy)"></i>Psychiatry<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
         <div class="menu">
-          <div class="mh">Psychiatry &middot; 0 games &middot; 16 lectures</div>
+          <div class="mh">Psychiatry &middot; 0 multi-lecture games &middot; 16 lectures</div>
           <div class="mnone">No Psychiatry games yet &middot; new ones land here as they&rsquo;re built.</div>
+          <div class="mnote">Looking for a single-lecture Builder? Use the <a href="#games" class="tosearch">search below</a> to find it by lecture.</div>
           <a class="all showall" href="#games" data-d="psy">Show all Psychiatry games below &darr;</a>
         </div>
       </details>
       <details class="dd" style="--c:var(--mic)">
         <summary class="btn sec"><i style="background:var(--mic)"></i>Microbiology<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
         <div class="menu">
-          <div class="mh">Microbiology &middot; 0 games &middot; 2 lectures</div>
+          <div class="mh">Microbiology &middot; 0 multi-lecture games &middot; 2 lectures</div>
           <div class="mnone">No Microbiology games yet &middot; new ones land here as they&rsquo;re built.</div>
+          <div class="mnote">Looking for a single-lecture Builder? Use the <a href="#games" class="tosearch">search below</a> to find it by lecture.</div>
           <a class="all showall" href="#games" data-d="mic">Show all Microbiology games below &darr;</a>
         </div>
       </details>
       <details class="dd" style="--c:var(--drt)">
         <summary class="btn sec"><i style="background:var(--drt)"></i>DRT<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
         <div class="menu">
-          <div class="mh">DRT &middot; 2 games &middot; 2 lectures</div>
-          <a href="CNS06_Builder.html"><span class="mt"><strong>CNS06 Builder</strong><small>Structure Builder &middot; Neuroradiology</small></span><span class="lec">CNS06</span></a>
+          <div class="mh">DRT &middot; 1 multi-lecture game &middot; 2 lectures</div>
           <a href="HoyaDocs_CNS06-08_Match_Lab.html"><span class="mt"><strong>CNS06&ndash;08 Match Lab</strong><small>Match Lab &middot; CT/MRI, malformations, perinatal injury, edema, hemorrhage &amp; herniation</small></span><span class="lec">CNS06&ndash;08</span></a>
+          <div class="mnote">Looking for a single-lecture Builder? Use the <a href="#games" class="tosearch">search below</a> to find it by lecture.</div>
           <a class="all showall" href="#games" data-d="drt">Show all DRT games below &darr;</a>
         </div>
       </details>
       <details class="dd" style="--c:var(--cp)">
         <summary class="btn sec"><i style="background:var(--cp)"></i>Clinical Practice<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
         <div class="menu">
-          <div class="mh">Clinical Practice &middot; 0 games &middot; 3 lectures</div>
+          <div class="mh">Clinical Practice &middot; 0 multi-lecture games &middot; 3 lectures</div>
           <div class="mnone">No Clinical Practice games yet &middot; new ones land here as they&rsquo;re built.</div>
+          <div class="mnote">Looking for a single-lecture Builder? Use the <a href="#games" class="tosearch">search below</a> to find it by lecture.</div>
           <a class="all showall" href="#games" data-d="cp">Show all Clinical Practice games below &darr;</a>
         </div>
       </details>
@@ -392,27 +384,11 @@ html{scroll-behavior:smooth}
   </section>
 
 
-  <div class="sh"><h2>New This Week</h2></div>
-  <a class="feat" href="HoyaDocs_CNS_Week1_Neuraxis_Siege_Boss_Battle.html">
-    <canvas id="featCanvas" width="184" height="184" aria-hidden="true"></canvas>
-    <div class="ft">
-      <div class="kick"><em>New</em> Boss Battle &middot; Week 1 campaign</div>
-      <h3>Neuraxis Siege</h3>
-      <p>Eleven lieutenants and a final boss hold the Week 1 neuraxis, from the cortical map down to the conus. Every concept is fought twice &mdash; once as a clinical vignette, once from a different angle &mdash; and the two never arrive back to back. Three hearts, missed items come back, full teardown after each answer.</p>
-      <div class="fchips"><span>CNS01&ndash;08</span><span>CNS12&ndash;16</span><span>45 concepts &times; 2</span><span>Decode &middot; Why &middot; Every choice</span></div>
-    </div>
-    <div class="fstats">
-      <div><b>90</b><span>Items</span></div>
-      <div><b>12</b><span>Bosses</span></div>
-      <div><b>3</b><span>Hearts</span></div>
-    </div>
-  </a>
-
   <div class="sh"><h2>How to Play</h2></div>
   <section class="every" aria-label="How to use the games">
     <div><div class="n">01 &middot; Learn</div><h3>Structure Builders</h3></div>
-    <div><div class="n">02 &middot; Test</div><h3>Boss Gauntlets</h3></div>
-    <div><div class="n">03 &middot; Review</div><h3>Creature Campaigns</h3></div>
+    <div><div class="n">02 &middot; Test</div><h3>Match Labs</h3></div>
+    <div><div class="n">03 &middot; Practice Questions</div><h3>Boss Gauntlets</h3></div>
     <div><div class="n">04 &middot; Exam-ready &middot; USMLE style</div><h3>Bell Ringer</h3></div>
   </section>
 
@@ -831,6 +807,9 @@ html{scroll-behavior:smooth}
   c.beginPath();c.lineWidth=s*.07;c.strokeStyle='#1B2030';
   c.moveTo(x-s*.25,y+s*.5);c.quadraticCurveTo(x,y+s*.42,x+s*.25,y+s*.52);c.stroke();
 })();
+</script>
+<script>
+[].forEach.call(document.querySelectorAll('.tosearch'),function(a){a.addEventListener('click',function(e){e.preventDefault();var d=a.closest('details');if(d)d.removeAttribute('open');var q=document.getElementById('q');document.getElementById('games').scrollIntoView({behavior:'smooth'});if(q)setTimeout(function(){q.focus({preventScroll:true});},350);});});
 </script>
 </body>
 </html>
