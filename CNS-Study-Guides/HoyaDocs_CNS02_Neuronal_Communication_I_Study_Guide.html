@@ -244,7 +244,7 @@ ul.bigp ul li{margin:2px 0;list-style:"→  "}
 <header class="top">
   <a class="word" href="../index.html">HOYA<span>DOCS</span></a>
   <div class="topr">
-    <div class="rev">Block 6 &middot; CNS &middot; CNS02 &middot; Rev 1.0 &middot; Updated Oct 22, 2026</div>
+    <div class="rev">Block 6 &middot; CNS &middot; CNS02 &middot; Rev 1.1 &middot; Updated Oct 23, 2026</div>
   </div>
 </header>
 <nav class="hubnav" aria-label="CNS sections">
@@ -1196,7 +1196,7 @@ ul.bigp ul li{margin:2px 0;list-style:"→  "}
 
 <footer class="foot">
   <div class="rev">HoyaDocs &middot; Block 6 &middot; CNS &middot; CNS02</div>
-  <div class="rev">Rev 1.0 &middot; Updated Oct 22, 2026</div>
+  <div class="rev">Rev 1.1 &middot; Updated Oct 23, 2026</div>
 </footer>
 </div>
 <script>
@@ -1234,5 +1234,37 @@ ul.bigp ul li{margin:2px 0;list-style:"→  "}
 <script>
 (function(){function op(){var h=location.hash.slice(1);if(!h)return;var t=document.getElementById(h);if(!t)return;var d=t.closest('details');while(d){d.open=true;d=d.parentElement&&d.parentElement.closest('details');}setTimeout(function(){t.scrollIntoView();},30);}window.addEventListener('hashchange',op);op();})();
 </script>
+<!-- hd-tabs --><style id="hd-tabs-css">
+/* tabbed study guide: one section at a time */
+body.hd-tabs section.lo[data-tab]{display:none}
+body.hd-tabs section.lo[data-tab].on{display:block}
+nav.toc .links a[aria-selected="true"]{background:#FFD54A!important;border-color:#D4A300!important;color:#0F2244!important;box-shadow:0 2px 0 #D4A300}
+nav.toc .links a[aria-selected="true"]::before{color:#0F2244!important}
+nav.toc .links a{cursor:pointer}
+@media print{body.hd-tabs section.lo[data-tab]{display:block!important}}
+</style><script>
+(function(){
+  var toc=document.querySelector('nav.toc'); if(!toc) return;
+  var tabs=[].slice.call(toc.querySelectorAll('.links a[href^="#"]'));
+  var ids=tabs.map(function(a){return a.getAttribute('href').slice(1);});
+  var secs={}; ids.forEach(function(id){var s=document.getElementById(id); if(s){s.setAttribute('data-tab',id); secs[id]=s;}});
+  if(!secs.map) return;
+  document.body.classList.add('hd-tabs');
+  toc.querySelector('.links').setAttribute('role','tablist');
+  function show(id,scroll){
+    if(!secs[id]) id='map';
+    ids.forEach(function(k){ if(secs[k]) secs[k].classList.toggle('on',k===id); });
+    tabs.forEach(function(a){ var on=a.getAttribute('href')==='#'+id; a.setAttribute('aria-selected',on?'true':'false'); a.setAttribute('role','tab'); });
+    if(scroll){ var y=toc.getBoundingClientRect().top+window.pageYOffset-8; window.scrollTo({top:y,behavior:'smooth'}); }
+  }
+  function tabFor(hash){
+    if(!hash) return null; var el=document.getElementById(hash); if(!el) return null;
+    var s=el.closest('section.lo[data-tab]'); return s?s.getAttribute('data-tab'):null;
+  }
+  tabs.forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault(); var id=a.getAttribute('href').slice(1); show(id,true); try{history.replaceState(null,'','#'+id);}catch(x){} }); });
+  window.addEventListener('hashchange',function(){ var h=location.hash.slice(1); var t=tabFor(h); if(t){ show(t,false); var el=document.getElementById(h); if(el && el!==secs[t]) setTimeout(function(){el.scrollIntoView();},40); } });
+  show(tabFor(location.hash.slice(1))||'map',false);
+})();
+</script><!-- /hd-tabs -->
 </body>
 </html>
